@@ -1,0 +1,45 @@
+FD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/mainModel me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/field_77045_g
+FD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/renderOutlines me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/field_177098_i
+FD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/logger me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/field_147923_a
+FD: me/sleepyfish/rat/mixin/culling/MixinRenderGlobal/mc me/sleepyfish/rat/mixin/culling/MixinRenderGlobal/field_72777_q
+FD: me/sleepyfish/rat/mixin/culling/MixinRenderGlobal/theWorld me/sleepyfish/rat/mixin/culling/MixinRenderGlobal/field_72769_h
+FD: me/sleepyfish/rat/mixin/gui/MixinGuiIngame/mc me/sleepyfish/rat/mixin/gui/MixinGuiIngame/field_73839_d
+FD: me/sleepyfish/rat/mixin/gui/MixinGuiIngame/widgetsTexPath me/sleepyfish/rat/mixin/gui/MixinGuiIngame/field_110330_c
+FD: me/sleepyfish/rat/mixin/gui/MixinGuiInventory/oldMouseX me/sleepyfish/rat/mixin/gui/MixinGuiInventory/field_147048_u
+FD: me/sleepyfish/rat/mixin/gui/MixinGuiInventory/oldMouseY me/sleepyfish/rat/mixin/gui/MixinGuiInventory/field_147047_v
+FD: me/sleepyfish/rat/mixin/gui/MixinGuiMainMenu/titlePanoramaPaths me/sleepyfish/rat/mixin/gui/MixinGuiMainMenu/field_73978_o
+FD: me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/mc me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/field_146247_f
+FD: me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/isScrolled me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/field_146251_k
+FD: me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/drawnChatLines me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/field_146253_i
+FD: me/sleepyfish/rat/mixin/MixinMinecraft/rightClickDelayTimer me/sleepyfish/rat/mixin/MixinMinecraft/field_71467_ac
+FD: me/sleepyfish/rat/mixin/MixinMinecraft/leftClickCounter me/sleepyfish/rat/mixin/MixinMinecraft/field_71429_W
+FD: me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/mcProfiler me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/field_71424_I
+FD: me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/theWorld me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/field_71441_e
+FD: me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/gameSettings me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/field_71474_y
+FD: me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/launchedVersion me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/field_110447_Z
+FD: me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/mcLanguageManager me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/field_135017_as
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/getSwingProgress (Lnet/minecraft/entity/EntityLivingBase;F)F me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_77040_d (Lnet/minecraft/entity/EntityLivingBase;F)F
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/interpolateRotation (FFF)F me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_77034_a (FFF)F
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/renderLivingAt (Lnet/minecraft/entity/EntityLivingBase;DDD)V me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_77039_a (Lnet/minecraft/entity/EntityLivingBase;DDD)V
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/handleRotationFloat (Lnet/minecraft/entity/EntityLivingBase;F)F me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_77044_a (Lnet/minecraft/entity/EntityLivingBase;F)F
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/rotateCorpse (Lnet/minecraft/entity/EntityLivingBase;FFF)V me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_77043_a (Lnet/minecraft/entity/EntityLivingBase;FFF)V
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/preRenderCallback (Lnet/minecraft/entity/EntityLivingBase;F)V me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_77041_b (Lnet/minecraft/entity/EntityLivingBase;F)V
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/setScoreTeamColor (Lnet/minecraft/entity/EntityLivingBase;)Z me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_177088_c (Lnet/minecraft/entity/EntityLivingBase;)Z
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/renderModel (Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_77036_a (Lnet/minecraft/entity/EntityLivingBase;FFFFFF)V
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/unsetScoreTeamColor ()V me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_180565_e ()V
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/unsetBrightness ()V me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_177091_f ()V
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/setDoRenderBrightness (Lnet/minecraft/entity/EntityLivingBase;F)Z me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_177090_c (Lnet/minecraft/entity/EntityLivingBase;F)Z
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/renderLayers (Lnet/minecraft/entity/EntityLivingBase;FFFFFFF)V me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_177093_a (Lnet/minecraft/entity/EntityLivingBase;FFFFFFF)V
+MD: me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/doRender (Lnet/minecraft/entity/EntityLivingBase;DDDFF)V me/sleepyfish/rat/mixin/animation/MixinRendererLivingEntity/func_76986_a (Lnet/minecraft/entity/EntityLivingBase;DDDFF)V
+MD: me/sleepyfish/rat/mixin/culling/MixinRenderGlobal/spawnEntityFX (IZDDDDDD[I)Lnet/minecraft/client/particle/EntityFX; me/sleepyfish/rat/mixin/culling/MixinRenderGlobal/func_174974_b (IZDDDDDD[I)Lnet/minecraft/client/particle/EntityFX;
+MD: me/sleepyfish/rat/mixin/gui/MixinGuiContainer/checkHotbarKeys (I)Z me/sleepyfish/rat/mixin/gui/MixinGuiContainer/func_146983_a (I)Z
+MD: me/sleepyfish/rat/mixin/gui/MixinGuiIngame/renderHotbarItem (IIIFLnet/minecraft/entity/player/EntityPlayer;)V me/sleepyfish/rat/mixin/gui/MixinGuiIngame/func_175184_a (IIIFLnet/minecraft/entity/player/EntityPlayer;)V
+MD: me/sleepyfish/rat/mixin/gui/MixinGuiInventory/drawGuiContainerForegroundLayer (II)V me/sleepyfish/rat/mixin/gui/MixinGuiInventory/func_146979_b (II)V
+MD: me/sleepyfish/rat/mixin/gui/MixinGuiMainMenu/renderSkybox (IIF)V me/sleepyfish/rat/mixin/gui/MixinGuiMainMenu/func_73971_c (IIF)V
+MD: me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/getLineCount ()I me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/func_146232_i ()I
+MD: me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/getChatOpen ()Z me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/func_146241_e ()Z
+MD: me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/getChatScale ()F me/sleepyfish/rat/mixin/gui/MixinGuiNewChat/func_146244_h ()F
+MD: me/sleepyfish/rat/mixin/MixinAbstractClientPlayer/getLocationSkin ()Lnet/minecraft/util/ResourceLocation; me/sleepyfish/rat/mixin/MixinAbstractClientPlayer/func_110306_p ()Lnet/minecraft/util/ResourceLocation;
+MD: me/sleepyfish/rat/mixin/MixinEntityLivingBase/getArmSwingAnimationEnd ()I me/sleepyfish/rat/mixin/MixinEntityLivingBase/func_82166_i ()I
+MD: me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/addGraphicsAndWorldToCrashReport (Lnet/minecraft/crash/CrashReport;)Lnet/minecraft/crash/CrashReport; me/sleepyfish/rat/mixin/MixinMinecraftFixEarlyCrashNoReports/func_71396_d (Lnet/minecraft/crash/CrashReport;)Lnet/minecraft/crash/CrashReport;
+MD: me/sleepyfish/rat/mixin/MixinRendererLivingEntity/renderName (Lnet/minecraft/entity/EntityLivingBase;DDD)V me/sleepyfish/rat/mixin/MixinRendererLivingEntity/func_177067_a (Lnet/minecraft/entity/EntityLivingBase;DDD)V
