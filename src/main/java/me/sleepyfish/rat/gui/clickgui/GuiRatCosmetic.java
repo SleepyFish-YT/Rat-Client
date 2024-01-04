@@ -1,22 +1,27 @@
 package me.sleepyfish.rat.gui.clickgui;
 
 import me.sleepyfish.rat.Rat;
-import me.sleepyfish.rat.utils.cosmetics.impl.capes.Cape;
-import me.sleepyfish.rat.utils.misc.InputUtils;
-import me.sleepyfish.rat.utils.misc.SoundUtils;
-import me.sleepyfish.rat.utils.render.ColorUtils;
 import me.sleepyfish.rat.utils.render.GlUtils;
+import me.sleepyfish.rat.utils.misc.SoundUtils;
 import me.sleepyfish.rat.utils.render.GuiUtils;
+import me.sleepyfish.rat.utils.misc.InputUtils;
+import me.sleepyfish.rat.utils.render.ColorUtils;
 import me.sleepyfish.rat.utils.render.RenderUtils;
-
-import me.sleepyfish.rat.utils.render.animations.simple.SimpleAnimation;
 import me.sleepyfish.rat.utils.render.font.FontUtils;
+import me.sleepyfish.rat.utils.cosmetics.impl.capes.Cape;
+import me.sleepyfish.rat.utils.render.animations.simple.SimpleAnimation;
+
 import net.minecraft.client.gui.GuiScreen;
 
 import org.lwjgl.input.Keyboard;
 
 import java.awt.Color;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class GuiRatCosmetic extends GuiScreen {
 
     private double scrollY;

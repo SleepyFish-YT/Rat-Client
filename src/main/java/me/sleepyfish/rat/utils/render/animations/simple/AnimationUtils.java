@@ -3,7 +3,11 @@ package me.sleepyfish.rat.utils.render.animations.simple;
 import me.sleepyfish.rat.utils.render.animations.normal.Animation;
 import me.sleepyfish.rat.utils.render.animations.normal.impl.DecelerateAnimation;
 
-// Class from SMok Client by SleepyFish
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class AnimationUtils {
 
     public static float calculateCompensation(float target, float current, double speed, long delta) {

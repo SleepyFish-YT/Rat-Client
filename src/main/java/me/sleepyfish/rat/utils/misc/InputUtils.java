@@ -1,7 +1,5 @@
 package me.sleepyfish.rat.utils.misc;
 
-import me.sleepyfish.rat.Rat;
-import me.sleepyfish.rat.utils.render.animations.simple.SimpleAnimation;
 import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Mouse;
@@ -10,12 +8,17 @@ import org.lwjgl.input.Keyboard;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class InputUtils {
 
-    public static int MOUSE_RIGHT;
-    public static int MOUSE_RIGHT_EVENT;
-    public static int MOUSE_LEFT;
-    public static int MOUSE_LEFT_EVENT;
+    public static int MOUSE_RIGHT = 1;
+    public static int MOUSE_RIGHT_EVENT = 4;
+    public static int MOUSE_LEFT = 0;
+    public static int MOUSE_LEFT_EVENT = 16;
 
     public static int mouseX;
     public static int mouseY;

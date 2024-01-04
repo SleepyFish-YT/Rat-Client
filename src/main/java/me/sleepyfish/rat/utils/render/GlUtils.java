@@ -1,21 +1,22 @@
 package me.sleepyfish.rat.utils.render;
 
-import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.client.shader.Framebuffer;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.renderer.entity.RenderManager;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.EXTPackedDepthStencil;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class GlUtils {
 
     public static void checkSetupFBO(Framebuffer framebuffer) {

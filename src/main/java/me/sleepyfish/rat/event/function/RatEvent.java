@@ -5,8 +5,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;
 
+
 /**
- * @author Rat Client by SleepyFish
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

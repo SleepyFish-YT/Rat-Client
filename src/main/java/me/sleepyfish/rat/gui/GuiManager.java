@@ -5,6 +5,11 @@ import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 
 import net.minecraft.client.gui.GuiScreen;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class GuiManager {
 
     public boolean useMixinMainMenuAnimation = true;

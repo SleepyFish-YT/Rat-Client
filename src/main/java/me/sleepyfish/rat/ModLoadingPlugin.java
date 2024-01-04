@@ -1,11 +1,18 @@
 package me.sleepyfish.rat;
 
 import org.objectweb.asm.*;
+
 import net.minecraft.launchwrapper.IClassTransformer;
+
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
 import java.util.Map;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @IFMLLoadingPlugin.TransformerExclusions("me/sleepyfish/rat")
 public class ModLoadingPlugin implements IFMLLoadingPlugin {
 

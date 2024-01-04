@@ -10,6 +10,11 @@ import java.lang.reflect.Type;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class FieldSearcherUtils {
 
     public static void setSession(Session s) throws Exception {

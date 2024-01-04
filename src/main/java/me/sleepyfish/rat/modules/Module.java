@@ -8,11 +8,11 @@ import me.sleepyfish.rat.utils.render.ColorUtils;
 import me.sleepyfish.rat.utils.render.RenderUtils;
 import me.sleepyfish.rat.modules.settings.Setting;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
+import me.sleepyfish.rat.utils.render.font.FontUtils;
+import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 import me.sleepyfish.rat.utils.render.animations.normal.Animation;
 import me.sleepyfish.rat.utils.render.animations.normal.Direction;
 import me.sleepyfish.rat.utils.render.animations.simple.AnimationUtils;
-import me.sleepyfish.rat.utils.render.font.FontUtils;
-import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,6 +20,11 @@ import net.minecraftforge.common.MinecraftForge;
 import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Module {
 
     private String name;

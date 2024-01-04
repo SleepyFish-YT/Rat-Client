@@ -18,6 +18,11 @@ import java.awt.Color;
 
 import static org.lwjgl.opengl.GL11.*;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class RenderUtils {
 
     public static ShaderUtils roundTextedShader;
@@ -51,7 +56,7 @@ public class RenderUtils {
             ColorUtils.setColorAlpha(color.getRGB());
         }
 
-        ResourceLocation resource = new ResourceLocation(MinecraftUtils.path + image + ".png");
+        ResourceLocation resource = new ResourceLocation(MinecraftUtils.resourcePath + image + ".png");
         MinecraftUtils.mc.getTextureManager().bindTexture(resource);
         GlStateManager.enableBlend();
         GL11.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

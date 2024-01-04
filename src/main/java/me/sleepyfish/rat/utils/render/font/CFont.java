@@ -12,7 +12,11 @@ import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
 
-// Class from SMok Client by SleepyFish
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class CFont {
 
     float imgSize = 1024.0F;

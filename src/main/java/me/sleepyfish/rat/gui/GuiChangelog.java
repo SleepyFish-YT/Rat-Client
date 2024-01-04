@@ -1,8 +1,8 @@
 package me.sleepyfish.rat.gui;
 
 import me.sleepyfish.rat.utils.misc.InputUtils;
-import me.sleepyfish.rat.utils.render.ColorUtils;
 import me.sleepyfish.rat.utils.render.GuiUtils;
+import me.sleepyfish.rat.utils.render.ColorUtils;
 import me.sleepyfish.rat.utils.render.RenderUtils;
 import me.sleepyfish.rat.utils.render.font.FontUtils;
 
@@ -14,6 +14,11 @@ import org.lwjgl.input.Keyboard;
 import java.awt.Color;
 import java.util.ArrayList;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class GuiChangelog extends GuiScreen {
 
     public ArrayList<String> lines;

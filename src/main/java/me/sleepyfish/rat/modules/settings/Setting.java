@@ -1,8 +1,13 @@
 package me.sleepyfish.rat.modules.settings;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public abstract class Setting {
 
     private final String type;

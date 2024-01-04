@@ -2,9 +2,15 @@ package me.sleepyfish.rat.modules.impl;
 
 import me.sleepyfish.rat.modules.Module;
 import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Animations extends Module {
 
     public static ToggleSetting oldSneak;

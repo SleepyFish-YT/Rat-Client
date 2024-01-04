@@ -8,14 +8,19 @@ import me.sleepyfish.rat.utils.misc.TimerUtils;
 import me.sleepyfish.rat.utils.render.GuiUtils;
 import me.sleepyfish.rat.utils.render.ColorUtils;
 import me.sleepyfish.rat.utils.render.RenderUtils;
-
 import me.sleepyfish.rat.utils.render.font.FontUtils;
+
 import net.minecraft.client.gui.GuiScreen;
 
 import org.lwjgl.input.Keyboard;
 
 import java.awt.Color;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class GuiRatModuleMove extends GuiScreen {
 
     private boolean overModuleList;

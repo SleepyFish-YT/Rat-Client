@@ -2,7 +2,11 @@ package me.sleepyfish.rat.utils.render.animations.normal.impl;
 
 import me.sleepyfish.rat.utils.render.animations.normal.Animation;
 
-// Class from SMok Client by SleepyFish
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class EaseInOutQuad extends Animation {
 
     public EaseInOutQuad(int ms, double endPoint) {

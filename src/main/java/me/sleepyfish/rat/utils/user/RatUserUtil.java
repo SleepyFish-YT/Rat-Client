@@ -1,5 +1,10 @@
 package me.sleepyfish.rat.utils.user;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class RatUserUtil {
 
     public static boolean isRatClientUser(String name) {

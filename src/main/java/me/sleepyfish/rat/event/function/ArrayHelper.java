@@ -2,6 +2,11 @@ package me.sleepyfish.rat.event.function;
 
 import java.util.Iterator;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class ArrayHelper<rat> implements Iterable<rat> {
 
 	private rat[] rat;

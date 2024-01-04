@@ -2,12 +2,17 @@ package me.sleepyfish.rat.modules.hud;
 
 import me.sleepyfish.rat.modules.Module;
 import me.sleepyfish.rat.utils.misc.InputUtils;
-import me.sleepyfish.rat.utils.render.font.FontUtils;
 import me.sleepyfish.rat.utils.render.RenderUtils;
+import me.sleepyfish.rat.utils.render.font.FontUtils;
 import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 
 import org.lwjgl.input.Keyboard;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Keystrokes extends Module {
 
     private final ToggleSetting spaceBar;

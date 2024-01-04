@@ -11,6 +11,11 @@ import net.minecraft.client.renderer.InventoryEffectRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @Mixin(GuiInventory.class)
 public abstract class MixinGuiInventory extends InventoryEffectRenderer {
 

@@ -2,6 +2,11 @@ package me.sleepyfish.rat.modules.hud;
 
 import me.sleepyfish.rat.modules.Module;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Counter extends Module {
 
     public Counter() {

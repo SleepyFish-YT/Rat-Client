@@ -3,6 +3,11 @@ package me.sleepyfish.rat.modules.hud;
 import me.sleepyfish.rat.modules.Module;
 import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Ping extends Module {
 
     private final ToggleSetting pingText;

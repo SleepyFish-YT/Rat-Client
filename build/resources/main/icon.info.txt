@@ -1,7 +1,0 @@
-not all module icons used in this client, are made by sleepyfish.
-
-most icons are from cloudmc, here is the github:
-https://github.com/cloudclientdev/cloudclient/
-
-here the link for the icons:
-https://github.com/cloudclientdev/cloudclient/tree/develop/1.8.9/cloudclient/src/main/resources/assets/cloudmc/icon/button/button

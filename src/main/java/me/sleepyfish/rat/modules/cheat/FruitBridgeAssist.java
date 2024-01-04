@@ -2,12 +2,17 @@ package me.sleepyfish.rat.modules.cheat;
 
 import me.sleepyfish.rat.modules.Module;
 import me.sleepyfish.rat.utils.misc.InputUtils;
+import me.sleepyfish.rat.utils.misc.TimerUtils;
 import me.sleepyfish.rat.utils.misc.PlayerUtils;
 
-import me.sleepyfish.rat.utils.misc.TimerUtils;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class FruitBridgeAssist extends Module {
 
     private final TimerUtils timer;

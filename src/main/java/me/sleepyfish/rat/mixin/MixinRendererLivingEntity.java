@@ -4,25 +4,25 @@ import me.sleepyfish.rat.Rat;
 import me.sleepyfish.rat.modules.impl.Freelook;
 import me.sleepyfish.rat.modules.impl.Nametags;
 import me.sleepyfish.rat.event.EventRenderEntity;
-
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 import me.sleepyfish.rat.utils.render.RenderUtils;
 import me.sleepyfish.rat.utils.user.RatUserUtil;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,6 +37,11 @@ import java.util.List;
 import static net.minecraft.client.renderer.entity.RendererLivingEntity.NAME_TAG_RANGE;
 import static net.minecraft.client.renderer.entity.RendererLivingEntity.NAME_TAG_RANGE_SNEAK;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @Mixin(RendererLivingEntity.class)
 public class MixinRendererLivingEntity <T extends EntityLivingBase> extends Render<T> {
 

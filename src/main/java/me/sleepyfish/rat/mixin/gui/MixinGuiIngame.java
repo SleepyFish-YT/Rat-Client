@@ -21,6 +21,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.Color;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @Mixin(GuiIngame.class)
 public abstract class MixinGuiIngame extends Gui {
 

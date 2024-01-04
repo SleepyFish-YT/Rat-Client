@@ -2,9 +2,15 @@ package me.sleepyfish.rat.modules.settings.impl;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import me.sleepyfish.rat.modules.settings.Setting;
 import me.sleepyfish.rat.utils.misc.InputUtils;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class KeybindSetting extends Setting {
 
     private String name;

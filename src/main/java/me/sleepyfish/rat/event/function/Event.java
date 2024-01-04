@@ -2,6 +2,11 @@ package me.sleepyfish.rat.event.function;
 
 import me.sleepyfish.rat.Rat;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public abstract class Event {
 
 	private boolean cancel;

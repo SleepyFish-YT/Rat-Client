@@ -8,11 +8,11 @@ import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.misc.WindowsUtils;
 import me.sleepyfish.rat.utils.render.RenderUtils;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
+import me.sleepyfish.rat.utils.render.font.FontUtils;
 import me.sleepyfish.rat.utils.render.animations.normal.Animation;
 import me.sleepyfish.rat.utils.render.animations.normal.Direction;
 import me.sleepyfish.rat.utils.render.animations.normal.impl.EaseBackIn;
 import me.sleepyfish.rat.utils.render.animations.snowflake.RenderSnowflakes;
-import me.sleepyfish.rat.utils.render.font.FontUtils;
 
 import net.minecraft.client.gui.*;
 import net.minecraft.util.ResourceLocation;
@@ -27,10 +27,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.Color;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @Mixin(GuiMainMenu.class)
 public abstract class MixinGuiMainMenu extends GuiScreen {
 
-    private static final String path = MinecraftUtils.path + "/gui/mainmenu/panorama_";
+    private static final String path = MinecraftUtils.resourcePath + "/gui/mainmenu/panorama_";
 
     @Shadow
     private static ResourceLocation[] titlePanoramaPaths = new ResourceLocation[] {

@@ -6,6 +6,11 @@ import net.minecraft.client.renderer.GlStateManager;
 
 import java.awt.Color;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class ColorUtils {
 
     public static Color getBackgroundBrighterColor() {

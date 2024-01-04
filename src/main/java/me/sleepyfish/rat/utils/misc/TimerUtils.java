@@ -1,5 +1,10 @@
 package me.sleepyfish.rat.utils.misc;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TimerUtils {

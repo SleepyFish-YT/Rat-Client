@@ -3,12 +3,17 @@ package me.sleepyfish.rat.modules.impl;
 import me.sleepyfish.rat.modules.Module;
 import me.sleepyfish.rat.event.EventRenderEntity;
 import me.sleepyfish.rat.event.function.RatEvent;
-
 import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
+
 import net.minecraft.entity.EntityLivingBase;
 
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Nametags extends Module {
 
     public static ToggleSetting removeAll;

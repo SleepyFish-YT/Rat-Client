@@ -2,14 +2,19 @@ package me.sleepyfish.rat.mixin.culling.effects;
 
 import me.sleepyfish.rat.event.EventRenderEntityEffect;
 
-import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.client.particle.EffectRenderer;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @Mixin(EffectRenderer.class)
 public class MixinEffectRenderer {
 

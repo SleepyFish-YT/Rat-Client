@@ -3,6 +3,11 @@ package me.sleepyfish.rat.utils.render.animations.normal.impl;
 import me.sleepyfish.rat.utils.render.animations.normal.Animation;
 import me.sleepyfish.rat.utils.render.animations.normal.Direction;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class EaseBackIn extends Animation {
 
     private final float easeAmount;

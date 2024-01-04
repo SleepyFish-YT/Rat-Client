@@ -15,6 +15,11 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Iterator;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @Mixin(EntityLivingBase.class)
 public abstract class MixinEntityLivingBase implements IMixinEntityLivingBase {
 

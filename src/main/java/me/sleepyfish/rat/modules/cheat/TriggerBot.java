@@ -10,6 +10,11 @@ import me.sleepyfish.rat.modules.settings.impl.KeybindSetting;
 
 import net.minecraft.entity.Entity;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class TriggerBot extends Module {
 
     public final ToggleSetting weaponCheck;

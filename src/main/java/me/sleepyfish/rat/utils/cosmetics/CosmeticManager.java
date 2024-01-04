@@ -1,15 +1,21 @@
 package me.sleepyfish.rat.utils.cosmetics;
 
 import me.sleepyfish.rat.Rat;
+import me.sleepyfish.rat.utils.misc.SoundUtils;
+import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 import me.sleepyfish.rat.utils.cosmetics.impl.Cosmetic;
 import me.sleepyfish.rat.utils.cosmetics.impl.capes.Cape;
 import me.sleepyfish.rat.utils.cosmetics.impl.emotes.Emote;
-import me.sleepyfish.rat.utils.misc.MinecraftUtils;
-import me.sleepyfish.rat.utils.misc.SoundUtils;
+
 import net.minecraft.util.ResourceLocation;
 
 import java.util.ArrayList;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class CosmeticManager {
 
     private ArrayList<Cosmetic> cosmeticInventory;
@@ -87,11 +93,11 @@ public class CosmeticManager {
     }
 
     private ResourceLocation loadResource(String path) {
-        return new ResourceLocation(MinecraftUtils.path + "/capes/" + path + ".png");
+        return new ResourceLocation(MinecraftUtils.resourcePath + "/capes/" + path + ".png");
     }
 
     private ResourceLocation loadRatResource(String path) {
-        return new ResourceLocation(MinecraftUtils.path + "/capes/rats/rat" + path + ".png");
+        return new ResourceLocation(MinecraftUtils.resourcePath + "/capes/rats/rat" + path + ".png");
     }
 
     public void setCapesAndEmoteListsFromInventory() {

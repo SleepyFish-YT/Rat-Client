@@ -8,6 +8,11 @@ import net.minecraft.client.gui.GuiScreen;
 
 import java.util.Random;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class RenderSnowflakes {
 
     private static final Random random = new Random();
@@ -36,10 +41,10 @@ public class RenderSnowflakes {
     }
 
     static class Snowflake {
-        private final Random random;
-        private int x, y;
 
+        private final Random random;
         private final double speed;
+        private int x, y;
 
         public Snowflake() {
             this.random = new Random();

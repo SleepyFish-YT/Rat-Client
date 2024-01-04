@@ -13,6 +13,11 @@ import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class ShaderUtils {
 
     private final int programID;
@@ -37,7 +42,7 @@ public class ShaderUtils {
     }
 
     public ShaderUtils(String fragmentShaderLoc) {
-        this(fragmentShaderLoc, MinecraftUtils.path + "/shaders/vertex.vsh");
+        this(fragmentShaderLoc, MinecraftUtils.resourcePath + "/shaders/vertex.vsh");
     }
 
     public void init() {

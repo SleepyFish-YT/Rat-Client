@@ -5,6 +5,7 @@ import me.sleepyfish.rat.gui.GuiManager;
 import me.sleepyfish.rat.modules.ModuleManager;
 import me.sleepyfish.rat.utils.cosmetics.CosmeticManager;
 import me.sleepyfish.rat.utils.config.ConfigManager;
+import me.sleepyfish.rat.utils.file.FileManager;
 import me.sleepyfish.rat.utils.misc.InjectionUtils;
 import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
@@ -14,12 +15,15 @@ import me.sleepyfish.rat.utils.render.RenderUtils;
 import me.sleepyfish.rat.utils.render.ShaderUtils;
 import me.sleepyfish.rat.utils.render.font.FontUtils;
 
-import net.minecraft.client.Minecraft;
-
 import java.time.Month;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Rat {
 
     public static final Rat instance = new Rat();
@@ -36,6 +40,8 @@ public class Rat {
     public ModuleManager moduleManager;
     public CosmeticManager cosmeticUtils;
     public GuiManager guiManager;
+
+    public FileManager fileManager;
 
     public ConfigManager configManager;
 
@@ -57,13 +63,6 @@ public class Rat {
 
         // Utils  ------------------------------------------
         {
-            MinecraftUtils.mc = Minecraft.getMinecraft();
-            MinecraftUtils.path = "rat";
-
-            InputUtils.MOUSE_RIGHT = 1;
-            InputUtils.MOUSE_RIGHT_EVENT = 4;
-            InputUtils.MOUSE_LEFT = 0;
-            InputUtils.MOUSE_LEFT_EVENT = 16;
             InputUtils.mouseX = 0;
             InputUtils.mouseY = 0;
 
@@ -74,13 +73,15 @@ public class Rat {
 
             GuiUtils.ob = new Object();
 
-            RenderUtils.roundedShader = new ShaderUtils(MinecraftUtils.path + "/shaders/roundedRect.frag");
-            RenderUtils.roundTextedShader = new ShaderUtils(MinecraftUtils.path + "/shaders/roundRectTextured.frag");
-            RenderUtils.roundedGrdntShader = new ShaderUtils(MinecraftUtils.path + "/shaders/roundedRectGradient.frag");
+            RenderUtils.roundedShader = new ShaderUtils(MinecraftUtils.resourcePath + "/shaders/roundedRect.frag");
+            RenderUtils.roundTextedShader = new ShaderUtils(MinecraftUtils.resourcePath + "/shaders/roundRectTextured.frag");
+            RenderUtils.roundedGrdntShader = new ShaderUtils(MinecraftUtils.resourcePath + "/shaders/roundedRectGradient.frag");
         }
 
         // Managers  ---------------------------------------
         {
+            this.fileManager = new FileManager();
+
             this.eventManager = new EventManager();
             this.moduleManager = new ModuleManager();
             this.cosmeticUtils = new CosmeticManager();

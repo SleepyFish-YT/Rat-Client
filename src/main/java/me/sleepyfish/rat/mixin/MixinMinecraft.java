@@ -1,8 +1,8 @@
 package me.sleepyfish.rat.mixin;
 
 import me.sleepyfish.rat.Rat;
-import me.sleepyfish.rat.modules.cheat.FastPlace;
 import me.sleepyfish.rat.modules.impl.Hitdelay;
+import me.sleepyfish.rat.modules.cheat.FastPlace;
 
 import net.minecraft.client.Minecraft;
 
@@ -12,6 +12,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @Mixin(Minecraft.class)
 public abstract class MixinMinecraft {
 

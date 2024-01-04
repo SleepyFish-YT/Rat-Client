@@ -1,6 +1,10 @@
 package me.sleepyfish.rat.utils.render.animations.simple;
 
-// Class from SMok Client by SleepyFish
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class SimpleAnimation {
 
     private float value;

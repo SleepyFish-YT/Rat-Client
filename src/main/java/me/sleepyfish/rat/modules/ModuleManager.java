@@ -4,10 +4,16 @@ import me.sleepyfish.rat.modules.hud.*;
 import me.sleepyfish.rat.modules.impl.*;
 import me.sleepyfish.rat.modules.cheat.*;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
+
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class ModuleManager {
 
     private boolean interesting = false;

@@ -10,6 +10,11 @@ import java.util.Map;
 import java.util.HashMap;
 import java.io.InputStream;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class FontUtils {
 
     public static MinecraftFontRenderer text24, text18, text14, iconFont;
@@ -56,7 +61,7 @@ public class FontUtils {
                 font = locationMap.get(location).deriveFont(Font.PLAIN, size);
             } else {
                 InputStream is = MinecraftUtils.mc
-                        .getResourceManager().getResource(new ResourceLocation(MinecraftUtils.path + "/fonts/" + location))
+                        .getResourceManager().getResource(new ResourceLocation(MinecraftUtils.resourcePath + "/fonts/" + location))
                         .getInputStream();
                 locationMap.put(location, font = Font.createFont(0, is));
                 font = font.deriveFont(Font.PLAIN, size);

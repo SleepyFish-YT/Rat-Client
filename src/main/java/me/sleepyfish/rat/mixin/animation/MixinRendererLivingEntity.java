@@ -1,20 +1,18 @@
 package me.sleepyfish.rat.mixin.animation;
 
-import me.sleepyfish.rat.Rat;
-import me.sleepyfish.rat.modules.impl.Freelook;
-import me.sleepyfish.rat.modules.impl.Nametags;
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 
-import me.sleepyfish.rat.utils.misc.MinecraftUtils;
-import net.minecraft.client.gui.FontRenderer;
+/*
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
@@ -22,15 +20,10 @@ import net.minecraft.util.ResourceLocation;
 
 import org.apache.logging.log4j.Logger;
 
-import org.lwjgl.opengl.GL11;
-
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-
-import static net.minecraft.client.renderer.entity.RendererLivingEntity.NAME_TAG_RANGE;
-import static net.minecraft.client.renderer.entity.RendererLivingEntity.NAME_TAG_RANGE_SNEAK;
 
 @Mixin(RendererLivingEntity.class)
 public abstract class MixinRendererLivingEntity<T extends EntityLivingBase> extends Render<T> {
@@ -87,10 +80,10 @@ public abstract class MixinRendererLivingEntity<T extends EntityLivingBase> exte
         this.shadowSize = shadowSize;
     }
 
-    /**
+    /*
      * @author sleepy
      * @reason modding animations
-     */
+     *
     @Overwrite
     public void doRender(T entity, double posX, double posY, double posZ, float p_doRender_8_, float p_doRender_9_) {
 
@@ -187,3 +180,4 @@ public abstract class MixinRendererLivingEntity<T extends EntityLivingBase> exte
     }
 
 }
+*/

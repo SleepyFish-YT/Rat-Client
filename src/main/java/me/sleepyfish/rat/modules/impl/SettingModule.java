@@ -6,6 +6,11 @@ import me.sleepyfish.rat.modules.settings.impl.KeybindSetting;
 
 import org.lwjgl.input.Keyboard;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class SettingModule extends Module {
 
     public static KeybindSetting guiKeybind;

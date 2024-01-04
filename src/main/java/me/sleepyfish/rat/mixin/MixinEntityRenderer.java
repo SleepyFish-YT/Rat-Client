@@ -1,11 +1,12 @@
 package me.sleepyfish.rat.mixin;
 
 import me.sleepyfish.rat.Rat;
+import me.sleepyfish.rat.modules.impl.Animations;
+import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 import me.sleepyfish.rat.event.EventCameraRotation;
 import me.sleepyfish.rat.event.EventPlayerHeadRotation;
-import me.sleepyfish.rat.modules.impl.Animations;
 import me.sleepyfish.rat.utils.interfaces.IMixinEntityLivingBase;
-import me.sleepyfish.rat.utils.misc.MinecraftUtils;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -13,13 +14,18 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MovingObjectPosition;
+
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @Mixin(EntityRenderer.class)
 public abstract class MixinEntityRenderer {
 

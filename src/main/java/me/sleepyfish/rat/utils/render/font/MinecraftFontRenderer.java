@@ -14,7 +14,11 @@ import org.lwjgl.opengl.GL11;
 import java.awt.Font;
 import java.awt.Color;
 
-// Class from SMok Client by SleepyFish
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class MinecraftFontRenderer extends CFont {
 
     CFont.CharData[] boldChars = new CFont.CharData[256];

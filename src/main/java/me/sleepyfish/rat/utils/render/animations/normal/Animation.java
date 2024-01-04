@@ -2,7 +2,11 @@ package me.sleepyfish.rat.utils.render.animations.normal;
 
 import me.sleepyfish.rat.utils.misc.TimerUtils;
 
-// Class from SMok Client by SleepyFish
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public abstract class Animation {
 
     public TimerUtils timer = new TimerUtils();

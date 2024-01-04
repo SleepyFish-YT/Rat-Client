@@ -1,19 +1,24 @@
 package me.sleepyfish.rat;
 
 import me.sleepyfish.rat.modules.Module;
-import me.sleepyfish.rat.modules.impl.Crosshair;
 import me.sleepyfish.rat.utils.misc.InputUtils;
+import me.sleepyfish.rat.modules.impl.Crosshair;
 import me.sleepyfish.rat.utils.misc.InjectionUtils;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 import me.sleepyfish.rat.modules.impl.SettingModule;
 
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @Mod(name = "Rat Client", modid = "rat", version = "0.9", acceptedMinecraftVersions = "1.8.9", modLanguage = "java")
 public class ForgeInit {
 

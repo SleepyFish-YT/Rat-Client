@@ -1,21 +1,28 @@
 package me.sleepyfish.rat.mixin;
 
-import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.resources.LanguageManager;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.crash.CrashReport;
 import net.minecraft.profiler.Profiler;
+import net.minecraft.crash.CrashReport;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.ClientBrandRetriever;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.resources.LanguageManager;
+
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Overwrite;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 @Mixin(Minecraft.class)
 public class MixinMinecraftFixEarlyCrashNoReports {
 

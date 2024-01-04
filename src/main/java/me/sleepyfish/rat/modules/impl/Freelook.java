@@ -1,20 +1,22 @@
 package me.sleepyfish.rat.modules.impl;
 
 import me.sleepyfish.rat.modules.Module;
+import me.sleepyfish.rat.utils.misc.PlayerUtils;
 import me.sleepyfish.rat.event.function.RatEvent;
 import me.sleepyfish.rat.event.EventCameraRotation;
 import me.sleepyfish.rat.event.EventPlayerHeadRotation;
 import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 import me.sleepyfish.rat.modules.settings.impl.KeybindSetting;
 
-import me.sleepyfish.rat.utils.misc.PlayerUtils;
 import net.minecraft.util.MathHelper;
-
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import org.lwjgl.input.Keyboard;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Freelook extends Module {
 
     private int oldState;

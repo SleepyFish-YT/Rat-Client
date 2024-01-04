@@ -5,6 +5,11 @@ import org.lwjgl.opengl.Display;
 import java.net.URI;
 import java.awt.Desktop;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class WindowsUtils {
 
     public static String ratTitle;

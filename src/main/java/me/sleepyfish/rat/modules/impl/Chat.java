@@ -2,12 +2,19 @@ package me.sleepyfish.rat.modules.impl;
 
 import me.sleepyfish.rat.modules.Module;
 import me.sleepyfish.rat.utils.render.GlUtils;
-import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 import me.sleepyfish.rat.utils.render.RenderUtils;
+import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 import me.sleepyfish.rat.utils.render.animations.simple.SimpleAnimation;
+
 import net.minecraft.client.gui.GuiScreen;
+
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Chat extends Module {
 
     public static double scrollY;

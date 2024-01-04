@@ -4,6 +4,11 @@ import me.sleepyfish.rat.modules.Module;
 import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class CPSCounter extends Module {
 
     private boolean allowLeftClick;

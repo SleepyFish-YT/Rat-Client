@@ -2,18 +2,24 @@ package me.sleepyfish.rat.utils.file;
 
 import java.io.File;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class FileManager {
 
-    public File mainPath;
+    private final File mainPath;
+    private final File capePath;
+    private final File configPath;
 
-    public File capePath;
-    public File configPath;
+    public static String resourcePath = "rat";
 
     public FileManager() {
         this.mainPath = new File(System.getProperty("user.home") + File.separator + ".ratclient");
 
-        this.capePath = new File(capePath.getPath() + File.separator + "capes");
-        this.configPath = new File(capePath.getPath() + File.separator + "configs");
+        this.capePath = new File(mainPath.getPath() + File.separator + "capes");
+        this.configPath = new File(mainPath.getPath() + File.separator + "configs");
     }
 
     public File getMainPath() {
@@ -27,4 +33,5 @@ public class FileManager {
     public File getCapePath() {
         return capePath;
     }
+
 }

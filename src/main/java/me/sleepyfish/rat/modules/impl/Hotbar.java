@@ -2,10 +2,15 @@ package me.sleepyfish.rat.modules.impl;
 
 import me.sleepyfish.rat.Rat;
 import me.sleepyfish.rat.modules.Module;
-import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
+import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 import me.sleepyfish.rat.utils.render.animations.simple.SimpleAnimation;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Hotbar extends Module {
 
     public static SimpleAnimation simpleAnimation;

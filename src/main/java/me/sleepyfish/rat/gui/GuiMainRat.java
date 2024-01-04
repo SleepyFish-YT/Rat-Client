@@ -6,13 +6,18 @@ import me.sleepyfish.rat.utils.misc.WindowsUtils;
 import me.sleepyfish.rat.utils.render.ColorUtils;
 import me.sleepyfish.rat.utils.render.RenderUtils;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
-import me.sleepyfish.rat.utils.render.animations.snowflake.RenderSnowflakes;
 import me.sleepyfish.rat.utils.render.font.FontUtils;
+import me.sleepyfish.rat.utils.render.animations.snowflake.RenderSnowflakes;
 
 import net.minecraft.client.gui.GuiScreen;
 
 import java.awt.Color;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class GuiMainRat {
 
     public static int logoAnimation;

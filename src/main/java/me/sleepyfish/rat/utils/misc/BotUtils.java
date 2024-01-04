@@ -2,6 +2,11 @@ package me.sleepyfish.rat.utils.misc;
 
 import net.minecraft.entity.Entity;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class BotUtils {
 
     public static boolean isBot(Entity target) {

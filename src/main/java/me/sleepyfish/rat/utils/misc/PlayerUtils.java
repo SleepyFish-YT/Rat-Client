@@ -6,6 +6,11 @@ import net.minecraft.item.*;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class PlayerUtils {
 
     public static boolean canLegitWork() {

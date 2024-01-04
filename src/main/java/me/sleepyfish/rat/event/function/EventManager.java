@@ -6,6 +6,11 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.lang.reflect.Method;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class EventManager {
 
 	private Map<Class<?>, ArrayHelper<EventHelp>> events;

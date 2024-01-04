@@ -1,21 +1,24 @@
 package me.sleepyfish.rat.modules.impl;
 
-import com.sun.javafx.geom.Vec3d;
 import me.sleepyfish.rat.event.*;
-import me.sleepyfish.rat.event.function.RatEvent;
 import me.sleepyfish.rat.modules.Module;
-import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
-import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 import me.sleepyfish.rat.utils.misc.PlayerUtils;
+import me.sleepyfish.rat.event.function.RatEvent;
+import me.sleepyfish.rat.utils.misc.MinecraftUtils;
+import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 
+import net.minecraft.util.Vec3;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Vec3;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * @author Nexuscript 2024
+ */
 public class Performance extends Module {
 
     private final ToggleSetting entityBehind;
