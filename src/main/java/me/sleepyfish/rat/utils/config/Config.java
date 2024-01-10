@@ -2,20 +2,23 @@ package me.sleepyfish.rat.utils.config;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import me.sleepyfish.rat.utils.render.GuiUtils;
 
 import java.io.*;
 
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class Config {
 
     public final File file;
     public final long creationDate;
 
-    public Config(File pathToFile) {
+    public GuiUtils.Button overRect;
+
+    public Config(final File pathToFile) {
         long cdDate;
         this.file = pathToFile;
 
@@ -23,42 +26,45 @@ public class Config {
             cdDate = System.currentTimeMillis();
             try {
                 file.createNewFile();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         } else {
             try {
                 cdDate = getData().get("creationTime").getAsLong();
-            } catch (NullPointerException e) {
+            } catch (Exception e) {
                 cdDate = 0L;
+                e.printStackTrace();
             }
         }
 
         this.creationDate = cdDate;
     }
 
-    public String getName() {
+    public final String getName() {
         return file.getName().replace(".cfg", "");
     }
 
-    public JsonObject getData() {
-        JsonParser jsonParser = new JsonParser();
+    public final JsonObject getData() {
+        final JsonParser jsonParser = new JsonParser();
 
-        try (FileReader reader = new FileReader(file)) {
-            Object obj = jsonParser.parse(reader);
+        try (final FileReader reader = new FileReader(file)) {
+            final Object obj = jsonParser.parse(reader);
             return (JsonObject) obj;
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return null;
     }
 
-    public void save(JsonObject data) {
+    public void save(final JsonObject data) {
         data.addProperty("creationDate", creationDate);
 
-        try (PrintWriter out = new PrintWriter(new FileWriter(file))) {
+        try (final PrintWriter out = new PrintWriter(new FileWriter(file))) {
             out.write(data.toString());
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

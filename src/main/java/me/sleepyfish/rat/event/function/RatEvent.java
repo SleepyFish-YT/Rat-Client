@@ -9,7 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

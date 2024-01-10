@@ -2,6 +2,7 @@ package me.sleepyfish.rat.gui.clickgui;
 
 import me.sleepyfish.rat.Rat;
 import me.sleepyfish.rat.modules.Module;
+import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 import me.sleepyfish.rat.utils.misc.SoundUtils;
 import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.misc.TimerUtils;
@@ -19,35 +20,40 @@ import java.awt.Color;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class GuiRatModuleMove extends GuiScreen {
 
-    private boolean overModuleList;
-    private boolean overEmoteGui;
-    private boolean overCosmeticGui;
-
-    public boolean overAModule;
-    public boolean renderHudModules;
     public boolean allowMoveHudModules;
 
     private TimerUtils logoTimer;
     private float logoAnimation;
 
+    private GuiUtils.Button moduleListButton;
+    private GuiUtils.Button emoteGuiButton;
+    private GuiUtils.Button cosmeticGuiButton;
+
     @Override
     public void initGui() {
+        for (final Module mod : Rat.instance.moduleManager.getModules()) {
+            if (mod.isEnabled() && mod.isMoving())
+                mod.setMoving(false);
+        }
+
+        final double wid = this.width / 2F;
+        final double hei = (this.height / 2F) - 10F;
+        this.moduleListButton  = new GuiUtils.Button("Settings", wid - 60, hei, 120, 20, 8F);
+        this.emoteGuiButton    = new GuiUtils.Button("", wid - 85, hei, 20, 20, 6F);
+        this.cosmeticGuiButton = new GuiUtils.Button("", wid + 65, hei, 20, 20, 6F);
+
         Rat.instance.guiManager.useMixinMainMenuAnimation = true;
 
-        this.renderHudModules = true;
         this.allowMoveHudModules = false;
-        this.overAModule = false;
-
-        this.overModuleList = false;
-        this.overEmoteGui = false;
-        this.overCosmeticGui = false;
 
         this.logoTimer = new TimerUtils();
         this.logoAnimation = 0;
+
+        Rat.instance.antiCheat.openGuiCheck();
     }
 
     @Override
@@ -60,7 +66,7 @@ public class GuiRatModuleMove extends GuiScreen {
         this.renderModulesUpdate(mouseX, mouseY);
 
         // Render gui background
-        RenderUtils.drawRound(0, 0, this.width, this.height, 0, new Color(0, 0, 0, 95));
+        RenderUtils.drawRound(0, 0, this.width, this.height, 0, new Color(0, 0, 0, 150));
 
         // Main menu icon animation
         if (this.logoTimer == null) {
@@ -75,33 +81,24 @@ public class GuiRatModuleMove extends GuiScreen {
         Color newColor = new Color(185, 185, 185, (int) Math.min(this.logoAnimation * 3F, 250F));
 
         // Render logos
-        RenderUtils.drawImage("/gui/icon", this.width / 2 - 25, this.height / 2 - 20 - (int) this.logoAnimation, 50, 50, newColor);
-        GuiUtils.drawLogo(this.width, this.height, 2);
-
-        // Hover setter
-        this.overModuleList = InputUtils.isInside(this.width / 2F - 60, this.height / 2F - 10, 120, 20);
-        this.overEmoteGui = InputUtils.isInside(this.width / 2F - 85, this.height / 2F - 10, 20, 20);
-        this.overCosmeticGui = InputUtils.isInside(this.width / 2F + 65, this.height / 2F - 10, 20, 20);
+        RenderUtils.drawImage("/gui/icon", this.width / 2 - 40, this.height / 2 - 40 - (int) this.logoAnimation, 80, 80, newColor);
+        GuiUtils.drawLogo(this.width, this.height, false);
 
         // Module list buttons
-
-        // Draw the rounded rectangle
-        RenderUtils.drawRound(this.width / 2F - 60, this.height / 2F - 10, 120, 20, 5, !this.overModuleList ? ColorUtils.getBackgroundDarkerColor().brighter() : ColorUtils.getBackgroundDarkerColor().darker());
-        String buttonText = "Settings";
-        FontUtils.drawFont(buttonText, (this.width / 2F - 60 + (120 - FontUtils.getFontWidth(buttonText)) / 2F), (this.height / 2F - 10 + (20 - FontUtils.getFontHeight()) / 2F), ColorUtils.getIconColorAlpha());
+        this.moduleListButton.render();
 
         // Gui Buttons with icons
         {
-            int imageSize = 14;
+            short imageSize = 14;
 
             // Emote button
-            RenderUtils.drawRound(this.width / 2F - 85, this.height / 2F - 10, 20, 20, 5, !this.overEmoteGui ? ColorUtils.getBackgroundDarkerColor().brighter() : ColorUtils.getBackgroundDarkerColor().darker());
+            this.emoteGuiButton.render();
 
             // Emote icon
             RenderUtils.drawImage("/gui/icons/emote", (int) (this.width / 2F - 85 + (20 - imageSize) / 2F), (int) (this.height / 2F - 10 + (21 - imageSize) / 2F), imageSize, imageSize, ColorUtils.getIconColorAlpha());
 
             // Cosmetic button
-            RenderUtils.drawRound(this.width / 2F + 65, this.height / 2F - 10, 20, 20, 5, !this.overCosmeticGui ? ColorUtils.getBackgroundDarkerColor().brighter() : ColorUtils.getBackgroundDarkerColor().darker());
+            this.cosmeticGuiButton.render();
 
             // Cosmetic icon
             RenderUtils.drawImage("/gui/icons/cosmetic", (int) (this.width / 2F + 65 + (20 - imageSize) / 2F), (int) (this.height / 2F - 10 + (21 - imageSize) / 2F), imageSize, imageSize, ColorUtils.getIconColorAlpha());
@@ -114,35 +111,35 @@ public class GuiRatModuleMove extends GuiScreen {
     @Override
     public void mouseClicked(int x, int y, int b) {
         if (b == InputUtils.MOUSE_LEFT) {
-            if (this.overModuleList) {
+            if (this.moduleListButton.isInside()) {
                 SoundUtils.playClick();
-                this.mc.displayGuiScreen(Rat.instance.guiManager.getRatModuleGUI());
+                this.mc.displayGuiScreen(Rat.instance.guiManager.getRatGuiModuleMenu());
             }
 
-            if (this.overCosmeticGui) {
-                SoundUtils.playClick();
-                this.mc.displayGuiScreen(Rat.instance.guiManager.getRatGuiCosmetic());
-            }
-
-            if (this.overEmoteGui) {
+            if (this.emoteGuiButton.isInside()) {
                 SoundUtils.playClick();
                 this.mc.displayGuiScreen(Rat.instance.guiManager.getRatGuiEmoteList());
             }
 
+            if (this.cosmeticGuiButton.isInside()) {
+                SoundUtils.playClick();
+                this.mc.displayGuiScreen(Rat.instance.guiManager.getRatGuiCosmetic());
+            }
+        }
+
+        if (b == InputUtils.MOUSE_RIGHT || b == InputUtils.MOUSE_LEFT) {
             if (this.allowMoveHudModules) {
-                if (this.overCosmeticGui || this.overEmoteGui || this.overModuleList)
+                if (this.moduleListButton.isInside() || this.emoteGuiButton.isInside() || this.cosmeticGuiButton.isInside())
                     return;
 
-                if (this.renderHudModules) {
-                    for (Module mod : Rat.instance.moduleManager.getModules()) {
-                        if (mod.isEnabled() && mod.isHudMod() && !mod.isMoving()) {
-                            if (mod.overRedCross) {
+                for (final Module mod : Rat.instance.moduleManager.getModules()) {
+                    if (mod.isEnabled() && mod.isHudMod() && !mod.isMoving()) {
+                        if (InputUtils.isInside(mod.getGuiX() - 8F, mod.getGuiY() - 5F, mod.getWidth() + 16, mod.getHeight())) {
+                            if (b == InputUtils.MOUSE_RIGHT) {
                                 mod.toggle();
-                                mod.overRedCross = false;
-                                return;
                             }
 
-                            if (InputUtils.isInside(mod.getGuiX() - 8F, mod.getGuiY() - 5F, mod.getWidth() + 16, mod.getHeight())) {
+                            if (b == InputUtils.MOUSE_LEFT) {
                                 mod.setMoving(true);
                                 mod.guiX2 = x - mod.getGuiX();
                                 mod.guiY2 = y - mod.getGuiY();
@@ -158,15 +155,12 @@ public class GuiRatModuleMove extends GuiScreen {
     protected void mouseReleased(int x, int y, int button) {
         if (button == InputUtils.MOUSE_LEFT) {
             if (this.allowMoveHudModules) {
-                if (this.overCosmeticGui || this.overEmoteGui || this.overModuleList)
+                if (this.moduleListButton.isInside() || this.emoteGuiButton.isInside() || this.cosmeticGuiButton.isInside())
                     return;
 
-                if (this.renderHudModules) {
-                    for (Module mod : Rat.instance.moduleManager.getModules()) {
-                        if (mod.isEnabled() && mod.isHudMod() && mod.isMoving()) {
-                            mod.setMoving(false);
-                        }
-                    }
+                for (final Module mod : Rat.instance.moduleManager.getModules()) {
+                    if (mod.isEnabled() && mod.isHudMod() && mod.isMoving())
+                        mod.setMoving(false);
                 }
             }
         }
@@ -175,10 +169,9 @@ public class GuiRatModuleMove extends GuiScreen {
     @Override
     public void keyTyped(char chara, int key) {
         if (key == Keyboard.KEY_ESCAPE) {
-            for (Module mod : Rat.instance.moduleManager.getModules()) {
-                if (mod.isEnabled() && mod.isMoving()) {
+            for (final Module mod : Rat.instance.moduleManager.getModules()) {
+                if (mod.isEnabled() && mod.isMoving())
                     mod.setMoving(false);
-                }
             }
 
             this.allowMoveHudModules = false;
@@ -188,9 +181,36 @@ public class GuiRatModuleMove extends GuiScreen {
         }
     }
 
+    public void modDrawUpdateAndHover() {
+        for (final Module mod : Rat.instance.moduleManager.getModules()) {
+
+            if (mod.isHudMod()) {
+                if (mod.isEnabled()) {
+
+                    if (mod.mc.thePlayer != null) {
+                        mod.renderUpdate();
+                        mod.drawComponent();
+                    }
+
+                    if (MinecraftUtils.mc.currentScreen == this) {
+                        final boolean isInside = InputUtils.isInside(mod.getGuiX() - 8F, mod.getGuiY() - 5F, mod.getWidth() + 16, mod.getHeight());
+                        mod.editOpacityAnimation.setAnimation(isInside ? 255 : 0, 12);
+
+                        float blah = ((float) FontUtils.currentFont.getHeight() + 1F) * 2F;
+                        if (mod.isCustom()) {
+                            blah = mod.getHeight();
+                        }
+
+                        final Color hoverColor = new Color(255, 255, 255, (int) mod.editOpacityAnimation.getValue());
+                        RenderUtils.drawOutline(mod.getGuiX() - 9, mod.getGuiY() - 6, mod.getWidth() + 18, blah, 2, 2, hoverColor);
+                    }
+                }
+            }
+        }
+    }
 
     private void renderModulesUpdate(int x, int y) {
-        for (Module mod : Rat.instance.moduleManager.getModules()) {
+        for (final Module mod : Rat.instance.moduleManager.getModules()) {
             if (mod.isEnabled()) {
                 if (mod.isMoving()) {
                     mod.setUnsaveGuiX(x - mod.guiX2);

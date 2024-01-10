@@ -13,7 +13,7 @@ import net.minecraft.entity.Entity;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class TriggerBot extends Module {
 
@@ -24,7 +24,7 @@ public class TriggerBot extends Module {
     public TimerUtils timer;
 
     public TriggerBot() {
-        super("Trigger Bot", "Hits for you if u hovering over a enemy.");
+        super("Trigger Bot", "Hits for you if u hovering over a enemy");
 
         this.addSetting(this.weaponCheck = new ToggleSetting("Weapon Check", true));
         this.addSetting(this.silentAttack = new ToggleSetting("Silent Attack", false));
@@ -44,7 +44,7 @@ public class TriggerBot extends Module {
         if (this.triggerKey.keycode != 0 && !this.triggerKey.isDown())
             return;
 
-        Entity pointed = mc.pointedEntity;
+        final Entity pointed = mc.pointedEntity;
         if (pointed != null) {
             if (!BotUtils.isBot(pointed)) {
                 if (this.timer.cpsTimer(8, 12)) {

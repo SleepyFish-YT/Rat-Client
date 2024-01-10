@@ -1,77 +1,63 @@
 package me.sleepyfish.rat.event.function;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.Map.Entry;
 import java.lang.reflect.Method;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class EventManager {
 
-	private Map<Class<?>, ArrayHelper<EventHelp>> events;
+	private final Map<Class<?>, ArrayHelper<EventHelp>> events;
 
 	public EventManager() {
-		this.events = new HashMap<>();
-	}
-
-	public void uninject() {
-		this.events = null;
+		this.events = new ConcurrentHashMap<>();
 	}
 
 	public void register(Object target) {
-		for (Method rat : target.getClass().getDeclaredMethods())
+		for (final Method rat : target.getClass().getDeclaredMethods())
 			if (!this.invalidCheck(rat))
 				this.register(rat, target);
 	}
 
-	@SuppressWarnings("unchecked")
-	private void register(Method method, Object target) {
-		Class<?> rat = method.getParameterTypes()[0];
-		final EventHelp eventHelp = new EventHelp(target, method, method.getAnnotation(RatEvent.class).value());
-
-		if (!eventHelp.meth.isAccessible())
-			eventHelp.meth.setAccessible(true);
-
-		if (this.events.containsKey(rat)) {
-			if (!this.events.get(rat).isRat(eventHelp)) {
-				this.events.get(rat).addRat(eventHelp);
-				this.addPriority((Class<? extends Event>) rat);
-			}
-		} else
-			this.events.put(rat, new ArrayHelper<EventHelp>() {{ this.addRat(eventHelp); }} );
-	}
-
 	public void unregister(final Object object) {
-		for (ArrayHelper<EventHelp> rat : this.events.values())
-			for (EventHelp eventHelp : rat)
+		for (final ArrayHelper<EventHelp> rat : this.events.values())
+			for (final EventHelp eventHelp : rat)
 				if (eventHelp.obj.equals(object))
 					rat.setBigRat(eventHelp);
 
 		this.remove(true);
 	}
 
-	public void remove(boolean b) {
-		Iterator<Entry<Class<?>, ArrayHelper<EventHelp>>> rat = this.events.entrySet().iterator();
+	@SuppressWarnings("unchecked")
+	private void register(Method method, Object target) {
+		final Class<?> eventClass = method.getParameterTypes()[0];
+		final EventHelp eventHelp = new EventHelp(target, method, method.getAnnotation(RatEvent.class).value());
+		eventHelp.meth.setAccessible(true);
 
-		while (rat.hasNext())
-			if (!b || rat.next().getValue().lengthCheck())
-				rat.remove();
+		events.computeIfAbsent(eventClass, k -> new ArrayHelper<>()).addRat(eventHelp);
+		this.addPriority((Class<? extends Event>) eventClass);
+	}
+
+	public void remove(boolean b) {
+		events.entrySet().removeIf(entry -> b && entry.getValue().lengthCheck());
 	}
 
 	private void addPriority(Class<? extends Event> c) {
-		ArrayHelper<EventHelp> eventHelp = new ArrayHelper<>();
+		PriorityQueue<EventHelp> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(eventHelp -> eventHelp.byta));
 
-		for (byte b : EventPriority.PRIORITY_ARRAY)
-			for (EventHelp rAt : this.events.get(c))
-				if (rAt.byta == b)
-					eventHelp.addRat(rAt);
+		for (final EventHelp rAt : this.events.getOrDefault(c, new ArrayHelper<>()))
+			priorityQueue.add(rAt);
 
-		this.events.put(c, eventHelp);
+		final ArrayHelper<EventHelp> sortedEventHelp = new ArrayHelper<>();
+		while (!priorityQueue.isEmpty())
+			sortedEventHelp.addRat(priorityQueue.poll());
+
+		this.events.put(c, sortedEventHelp);
 	}
 
 	private boolean invalidCheck(final Method method) {

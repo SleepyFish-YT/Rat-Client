@@ -5,11 +5,11 @@ import net.minecraft.entity.Entity;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class BotUtils {
 
-    public static boolean isBot(Entity target) {
+    public static boolean isBot(final Entity target) {
         return target.getUniqueID().version() == 2
                 || target.ticksExisted > 99999
                 || target.getName().contains("-")

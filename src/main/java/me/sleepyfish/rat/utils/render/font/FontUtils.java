@@ -13,7 +13,7 @@ import java.io.InputStream;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class FontUtils {
 
@@ -23,40 +23,39 @@ public class FontUtils {
     private static int prevScale;
 
     public static void init() {
-        Map<String, Font> locationMap = new HashMap<>();
-        ScaledResolution sr = new ScaledResolution(MinecraftUtils.mc);
-        int scale = sr.getScaleFactor();
+        final Map<String, Font> locationMap = new HashMap<>();
+        final ScaledResolution sr = MinecraftUtils.res;
+        final int scale = sr.getScaleFactor();
 
         if (scale != prevScale) {
             prevScale = scale;
 
             // arial, comfortaa, icon, verdana
-            String mainFont = "verdana";
+            String mainFont = "verdana.ttf";
 
-            Font i = getFont(locationMap, mainFont, 24.0F);
+            Font i = getFont(locationMap, mainFont, 24F);
             text24 = new MinecraftFontRenderer(i);
 
-            Font d = getFont(locationMap, mainFont, 18.0F);
+            Font d = getFont(locationMap, mainFont, 18F);
             text18 = new MinecraftFontRenderer(d);
 
-            Font a = getFont(locationMap, mainFont, 14.0F);
+            Font a = getFont(locationMap, mainFont, 14F);
             text14 = new MinecraftFontRenderer(a);
 
-            Font s = getFont(locationMap, "icon", 18.0F);
+            Font s = getFont(locationMap, "icon.ttf", 18F);
             iconFont = new MinecraftFontRenderer(s);
 
             currentFont = text18;
         }
     }
 
-    public static Font getFont(Map<String, Font> locationMap, String location, float size) {
-        ScaledResolution sr = new ScaledResolution(MinecraftUtils.mc);
-        size *= (float) sr.getScaleFactor() / 2.0F;
+    public static Font getFont(final Map<String, Font> locationMap, final String location, float size) {
+        final ScaledResolution sr = MinecraftUtils.res;
+
+        size *= (float) sr.getScaleFactor() / 2F;
 
         Font font;
         try {
-            location = location + ".ttf";
-
             if (locationMap.containsKey(location)) {
                 font = locationMap.get(location).deriveFont(Font.PLAIN, size);
             } else {
@@ -66,14 +65,15 @@ public class FontUtils {
                 locationMap.put(location, font = Font.createFont(0, is));
                 font = font.deriveFont(Font.PLAIN, size);
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
             font = new Font("default", Font.PLAIN, (int) size);
+            e.printStackTrace();
         }
 
         return font;
     }
 
-    public static void drawFont(String text, float x, float y, Color color) {
+    public static void drawFont(final String text, final float x, final float y, Color color) {
         //if (SettingModule.customFont.isEnabled()) {
             FontUtils.currentFont.drawString(text, x, y, color);
         //} else {
@@ -81,7 +81,7 @@ public class FontUtils {
         //}
     }
 
-    public static int getFontWidth(String text) {
+    public static int getFontWidth(final String text) {
         //if (SettingModule.customFont.isEnabled()) {
             return (int) FontUtils.currentFont.getStringWidth(text);
         //} else {

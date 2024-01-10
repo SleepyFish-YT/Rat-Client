@@ -28,7 +28,7 @@ compileJava {
     options.debug = false
 }
 
-version = "1.0"
+version = "v1.1"
 group = "me.sleepyfish"
 archivesBaseName = "rat"
 
@@ -56,6 +56,8 @@ repositories {
 dependencies {
     embed('org.spongepowered:mixin:0.7.11-SNAPSHOT')
 
+    implementation 'org.apache.commons:commons-math3:3.6.1'
+
     compile fileTree(dir: "libs", include: "occlusionculling.jar")
 }
 
@@ -66,10 +68,6 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
         expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
     }
 }
 

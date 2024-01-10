@@ -1,6 +1,7 @@
 package me.sleepyfish.rat.mixin;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -21,19 +22,27 @@ import org.spongepowered.asm.mixin.Overwrite;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 @Mixin(Minecraft.class)
-public class MixinMinecraftFixEarlyCrashNoReports {
+public abstract class MixinMinecraftFixEarlyCrashNoReports {
 
-    @Shadow @Final public Profiler mcProfiler;
-    @Shadow public WorldClient theWorld;
+    @Shadow @Final
+    public Profiler mcProfiler;
 
-    @Shadow public GameSettings gameSettings;
+    @Shadow
+    public WorldClient theWorld;
 
-    @Shadow @Final private String launchedVersion;
+    @Shadow
+    public GameSettings gameSettings;
 
-    @Shadow private LanguageManager mcLanguageManager;
+    @Shadow @Final
+    private String launchedVersion;
+
+    @Shadow
+    private LanguageManager mcLanguageManager;
+
+    @Shadow public abstract void resize(int par1, int par2);
 
     /**
      *
@@ -41,23 +50,25 @@ public class MixinMinecraftFixEarlyCrashNoReports {
      * @author mojang
      */
     @Overwrite
-    public CrashReport addGraphicsAndWorldToCrashReport(CrashReport crashReport) {
-        crashReport.getCategory().addCrashSectionCallable("Launched Version", () -> MixinMinecraftFixEarlyCrashNoReports.this.launchedVersion);
-        crashReport.getCategory().addCrashSectionCallable("LWJGL", Sys::getVersion);
+    public CrashReport addGraphicsAndWorldToCrashReport(CrashReport report) {
+        final CrashReportCategory cat = report.getCategory();
 
-        // check if gl is available in the current thread
+        cat.addCrashSectionCallable("Launched Version", () -> MixinMinecraftFixEarlyCrashNoReports.this.launchedVersion);
+        cat.addCrashSectionCallable("LWJGL", Sys::getVersion);
+
         try {
             GLContext.getCapabilities();
-            crashReport.getCategory().addCrashSectionCallable("OpenGL", () -> GL11.glGetString(7937) + " GL version " + GL11.glGetString(7938) + ", " + GL11.glGetString(7936));
-        } catch (IllegalStateException throwable) {
-            // no-op if gl is not available
+            cat.addCrashSectionCallable("OpenGL", () -> GL11.glGetString(7937) + " GL version " + GL11.glGetString(7938) + ", " + GL11.glGetString(7936));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        crashReport.getCategory().addCrashSectionCallable("GL Caps", OpenGlHelper::getLogText);
-        crashReport.getCategory().addCrashSectionCallable("Using VBOs", () -> MixinMinecraftFixEarlyCrashNoReports.this.gameSettings.useVbo ? "Yes" : "No");
+        cat.addCrashSectionCallable("GL Caps", OpenGlHelper::getLogText);
+        cat.addCrashSectionCallable("Using VBOs", () -> MixinMinecraftFixEarlyCrashNoReports.this.gameSettings.useVbo ? "Yes" : "No");
 
-        crashReport.getCategory().addCrashSectionCallable("Is Modded", () -> {
-            String string = ClientBrandRetriever.getClientModName();
+        cat.addCrashSectionCallable("Is Modded", () -> {
+            final String string = ClientBrandRetriever.getClientModName();
+
             if (!string.equals("vanilla")) {
                 return "Definitely; Client brand changed to '" + string + "'";
             } else {
@@ -65,31 +76,29 @@ public class MixinMinecraftFixEarlyCrashNoReports {
             }
         });
 
-        crashReport.getCategory().addCrashSectionCallable("Type", () -> "Client (map_client.txt)");
-        crashReport.getCategory().addCrashSectionCallable("Resource Packs", () -> {
-            StringBuilder stringBuilder = new StringBuilder();
+        cat.addCrashSectionCallable("Type", () -> "Client (map_client.txt)");
+        cat.addCrashSectionCallable("Resource Packs", () -> {
+            final StringBuilder stringBuilder = new StringBuilder();
 
-            for (String string : MixinMinecraftFixEarlyCrashNoReports.this.gameSettings.resourcePacks) {
-                if (stringBuilder.length() > 0) {
+            for (final String string : MixinMinecraftFixEarlyCrashNoReports.this.gameSettings.resourcePacks) {
+                if (stringBuilder.length() > 0)
                     stringBuilder.append(", ");
-                }
 
                 stringBuilder.append(string);
-                if (MixinMinecraftFixEarlyCrashNoReports.this.gameSettings.incompatibleResourcePacks.contains(string)) {
+                if (MixinMinecraftFixEarlyCrashNoReports.this.gameSettings.incompatibleResourcePacks.contains(string))
                     stringBuilder.append(" (incompatible)");
-                }
             }
 
             return stringBuilder.toString();
         });
 
-        crashReport.getCategory().addCrashSectionCallable("Current Language", () -> MixinMinecraftFixEarlyCrashNoReports.this.mcLanguageManager.getCurrentLanguage().toString());
-        crashReport.getCategory().addCrashSectionCallable("Profiler Position", () -> this.mcProfiler.profilingEnabled ? this.mcProfiler.getNameOfLastSection() : "N/A (disabled)");
-        crashReport.getCategory().addCrashSectionCallable("CPU", OpenGlHelper::getCpu);
+        cat.addCrashSectionCallable("Current Language", () -> MixinMinecraftFixEarlyCrashNoReports.this.mcLanguageManager.getCurrentLanguage().toString());
+        cat.addCrashSectionCallable("Profiler Position", () -> this.mcProfiler.profilingEnabled ? this.mcProfiler.getNameOfLastSection() : "N/A (disabled)");
+        cat.addCrashSectionCallable("CPU", OpenGlHelper::getCpu);
 
         if (this.theWorld != null)
-            this.theWorld.addWorldInfoToCrashReport(crashReport);
+            this.theWorld.addWorldInfoToCrashReport(report);
 
-        return crashReport;
+        return report;
     }
 }

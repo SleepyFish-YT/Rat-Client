@@ -9,7 +9,12 @@ float roundSDF(vec2 a, vec2 b, float c) {
 	return length(max(abs(a) - b, 0.0)) - c;
 }
 
-// Class from SMok Client by SleepyFish
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * This class contains code of Soar shit skid client made by a retard named eldodebug
+ * @author Nexuscript 2024
+ */
 void main() {
 	vec2 rectHalf = rectSize * .5;
 	

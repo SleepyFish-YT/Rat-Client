@@ -1,13 +1,17 @@
 package me.sleepyfish.rat.utils.misc;
 
+import me.sleepyfish.rat.modules.settings.SettingModule;
+
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class SoundUtils {
 
-    public static void playSound(String name, float volume, float pitch) {
+    public static void playSound(final String name, final float volume, final float pitch) {
+        if (!SettingModule.sounds.isEnabled())
+            return;
 
         if (MinecraftUtils.mc.thePlayer != null) {
             switch (name) {
@@ -31,7 +35,7 @@ public class SoundUtils {
     }
 
     public static void playClick() {
-        SoundUtils.playSound("click", 1.0F, 0.8F);
+        SoundUtils.playSound("click", 1F, 0.8F);
     }
 
 }

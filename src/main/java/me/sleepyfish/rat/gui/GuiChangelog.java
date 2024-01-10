@@ -1,5 +1,6 @@
 package me.sleepyfish.rat.gui;
 
+import me.sleepyfish.rat.Rat;
 import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.render.GuiUtils;
 import me.sleepyfish.rat.utils.render.ColorUtils;
@@ -17,21 +18,113 @@ import java.util.ArrayList;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class GuiChangelog extends GuiScreen {
 
-    public ArrayList<String> lines;
-    public boolean sliderMoving;
-    private float scrollY = 0F;
+    public final ArrayList<String> lines;
+    private float scrollY;
 
     public GuiChangelog() {
         this.lines = new ArrayList<>();
+
+        // Header: Fix: Added: Deleted: NewLine
+
+        final String add = "+ ";
+        final String del = "- ";
+        final String header = "* Release: ";
+        final String fix = "? ";
+        final String info = ". ";
+        final String newLn = "#";
+
+        this.lines.add(header + "1.0");
+        this.lines.add(fix + "Fixed Scroll wheel not working in Cosmetics Gui");
+        this.lines.add(fix + "Fixed Chat cant be disabled bug");
+        this.lines.add(add + "Made mouse keybinds in inventory work");
+        this.lines.add(add + "Added Chat Animations");
+        this.lines.add(add + "Added Chat setting to remove chat");
+        this.lines.add(add + "Added Chat setting to remove background");
+        this.lines.add(add + "Added Chat Limit unlocker");
+        this.lines.add(add + "Added Chat Custom font");
+        this.lines.add(add + "Added Smooth Module scroll animation");
+        this.lines.add(add + "Added Smoothness to the Entity in cape gui");
+        this.lines.add(add + "Added Rat client logo ontop of Inventory");
+        this.lines.add(add + "Added Smooth Cape scroll animation");
+        this.lines.add(del + "Removed the Username in cape gui");
+        this.lines.add(newLn);
+
+        this.lines.add(header + "0.9-PRE");
+        this.lines.add(fix + "Fixed Keybinds");
+        this.lines.add(add + "Made Font rendering better");
+        this.lines.add(add + "Made Flying speed not work on servers");
+        this.lines.add(newLn);
+
+        this.lines.add(header + "0.8-PRE");
+        this.lines.add(fix + "Fixed Keystrokes hover");
+        this.lines.add(fix + "Fixed Walter cape");
+        this.lines.add(fix + "Fixed Zoom working inside Gui's");
+        this.lines.add(fix + "Fixed Freelook working inside Gui's");
+        this.lines.add(fix + "Fixed wrong text in Toggle Sprint");
+        this.lines.add(fix + "Fixed Flight speed on Toggle Sprint");
+        this.lines.add(add + "Added some usernames to a list to render a rat icon nearby the nametag");
+        this.lines.add(add + "Added Server IP");
+        this.lines.add(add + "Added Setting IP Text");
+        this.lines.add(add + "Added Server Ping");
+        this.lines.add(add + "Added Server Ping text");
+        this.lines.add(add + "Added Remove backgrounds for Nametags");
+        this.lines.add(add + "Made Nametags rotate with your freecam rotations");
+        this.lines.add(add + "Added Remove all Nametags");
+        this.lines.add(add + "Made the crosshair stop rendering when in gui");
+        this.lines.add(add + "Added Cosmetic icon in Module Move Gui");
+        this.lines.add(add + "Added Settings text in Module Move Gui");
+        this.lines.add(add + "Added a check if its december, then use a different main icon and render snowfall");
+        this.lines.add(add + "Added Changelog Gui");
+        this.lines.add(add + "Added Config manager");
+        this.lines.add(add + "Made the Gui better");
+        this.lines.add(add + "Made Freelook save the old state");
+        this.lines.add(add + "Renamed Old animations to Animations");
+        this.lines.add(add + "Renamed Boss Bar to Bossbar");
+        this.lines.add(add + "Renamed Free look to Freelook");
+        this.lines.add(del + "Removed useless font drawing features");
+        this.lines.add(newLn);
+
+        this.lines.add(header + "0.7-PRE");
+        this.lines.add(add + "Added option to use vanilla Gui");
+        this.lines.add(add + "Added Module icons");
+        this.lines.add(add + "Added 'Cancel effects' which removes effects behind ur camera");
+        this.lines.add(add + "Added 'Cancel items' which removes items behind ur camera");
+        this.lines.add(newLn);
+
+        this.lines.add(header + "0.6-PRE");
+        this.lines.add(add + "Added 'Cancel Entities' which removes items behind ur camera");
+        this.lines.add(add + "Added lunar like Main menu");
+        this.lines.add(add + "Added lunar like Module menu");
+        this.lines.add(add + "Added Cps");
+        this.lines.add(add + "Added Fps");
+        this.lines.add(add + "Added Name");
+        this.lines.add(add + "Added Keystrokes");
+        this.lines.add(add + "Added Zoom");
+        this.lines.add(add + "Added Counter");
+        this.lines.add(add + "Added More modules to change minecraft hud rendering");
+        this.lines.add(add + "Added Gui click Sounds");
+        this.lines.add(add + "Added Settings to change Keybinds");
+        this.lines.add(info + "Changed icons");
+        this.lines.add(add + "Added intro animation to the icon when opening gui");
+        this.lines.add(fix + "Fixed memory leak (above 5gb of ram usage)");
+        this.lines.add(add + "Added hypixel working Free Look");
+        this.lines.add(add + "Added Fix Hit delay");
+        this.lines.add(add + "Added custom font");
+        this.lines.add(add + "Added Old sneak animation");
+        this.lines.add(add + "Added Coordinates");
+        this.lines.add(add + "Added Performance module");
+        this.lines.add(add + "Added Cosmetics");
     }
 
     @Override
     public void initGui() {
-        this.sliderMoving = false;
+        this.scrollY = 0;
+
+        Rat.instance.antiCheat.openGuiCheck();
     }
 
     @Override
@@ -39,11 +132,14 @@ public class GuiChangelog extends GuiScreen {
         InputUtils.mouseX = mouseX;
         InputUtils.mouseY = mouseY;
 
-        // Render gui background
-        RenderUtils.drawRound(0, 0, this.width, this.height, 0, new Color(0, 0, 0, 95));
-        GuiUtils.drawLogo(this.width, this.height, 2);
+        if (this.scrollY > InputUtils.getScroll())
+            this.scrollY = InputUtils.getScroll();
 
-        int yOffset = 0;
+        // Render gui background
+        this.drawDefaultBackground();
+        GuiUtils.drawLogo(this.width, this.height, false);
+
+        float yOffset = 0;
         for (String text : lines) {
             if (text.startsWith("+ ")) {
                 text = text.replace("+ ", EnumChatFormatting.DARK_GREEN + "[+] - ");
@@ -61,11 +157,11 @@ public class GuiChangelog extends GuiScreen {
                 return;
             }
 
-            if (text.startsWith(EnumChatFormatting.BOLD  + "[ !] - ")) {
-                FontUtils.text24.drawString(text, (this.width / 2F) - 200F, 60F + (float) (yOffset * FontUtils.text18.getHeight() + 8F) + this.scrollY, ColorUtils.getFontColor(this));
-                yOffset += 2;
-            } else {
+            if (text.startsWith(EnumChatFormatting.BOLD + "[ !] - ")) {
                 FontUtils.text18.drawString(text, (this.width / 2F) - 200F, 60F + (float) (yOffset * FontUtils.text18.getHeight() + 8F) + this.scrollY, ColorUtils.getFontColor(this));
+                yOffset += 1.8F;
+            } else {
+                FontUtils.text14.drawString(text, (this.width / 2F) - 200F, 60F + (float) (yOffset * FontUtils.text18.getHeight() + 8F) + this.scrollY, ColorUtils.getFontColor(this));
                 yOffset += 1;
             }
         }
@@ -82,7 +178,7 @@ public class GuiChangelog extends GuiScreen {
         RenderUtils.drawRound(25F, 25F * 4F, 20F, 20F, 5F, new Color(0xFFAA00));
         FontUtils.drawFont("Fix", 55F, 25F * 4F + 6F, ColorUtils.getFontColor(this));
 
-        RenderUtils.drawRound(25F, 25F * 4F, 20F, 20F, 5F, new Color(0xFF5555FF, true));
+        RenderUtils.drawRound(25F, 25F * 5F, 20F, 20F, 5F, new Color(0x5555FF));
         FontUtils.drawFont("Info", 55F, 25F * 5F + 6F, ColorUtils.getFontColor(this));
     }
 
@@ -91,12 +187,6 @@ public class GuiChangelog extends GuiScreen {
         if (key == Keyboard.KEY_ESCAPE) {
             mc.displayGuiScreen(null);
         }
-    }
-
-    @Override
-    public void updateScreen() {
-        // Hover setter
-        this.scrollY = InputUtils.getScroll();
     }
 
 }

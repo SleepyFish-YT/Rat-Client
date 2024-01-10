@@ -1,6 +1,7 @@
 package me.sleepyfish.rat.modules.impl;
 
 import me.sleepyfish.rat.modules.Module;
+import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.misc.PlayerUtils;
 import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 import me.sleepyfish.rat.modules.settings.impl.KeybindSetting;
@@ -12,7 +13,7 @@ import org.lwjgl.input.Keyboard;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class Zoom extends Module {
 
@@ -41,7 +42,7 @@ public class Zoom extends Module {
             return;
 
         if (mc.thePlayer != null) {
-            if (Keyboard.isKeyDown(keybindSetting.keycode)) {
+            if (InputUtils.isKeyDown(keybindSetting.keycode)) {
                 if (!active) {
                     this.oldSens = mc.gameSettings.mouseSensitivity;
                     this.oldFov = mc.gameSettings.fovSetting;
@@ -53,7 +54,7 @@ public class Zoom extends Module {
                     if (this.smoothCam.isEnabled())
                         KeyBinding.setKeyBindState(mc.gameSettings.keyBindSmoothCamera.getKeyCode(), true);
 
-                    mc.gameSettings.fovSetting = 25;
+                    mc.gameSettings.fovSetting = 35;
                 }
             } else {
                 if (this.active) {

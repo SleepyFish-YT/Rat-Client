@@ -9,14 +9,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class Tablist extends Module {
 
     private final ToggleSetting render;
 
     public Tablist() {
-        super("Tablist", "Change the Player / Tab List HUD.");
+        super("Tablist", "Change the Player / Tab List HUD");
 
         this.addSetting(this.render = new ToggleSetting("Render", true));
 

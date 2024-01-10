@@ -2,25 +2,36 @@
   "required": true,
   "package": "me.sleepyfish.rat.mixin",
   "compatibilityLevel": "JAVA_8",
+
   "client": [
-    "MixinAbstractClientPlayer",
-    "MixinEntityLivingBase",
-    "MixinEntityRenderer",
-    "MixinMinecraft",
     "MixinMinecraftFixEarlyCrashNoReports",
     "MixinRendererLivingEntity",
-    "animation.MixinRendererLivingEntity",
-    "culling.MixinBlock",
-    "culling.MixinRenderGlobal",
-    "culling.MixinRenderManager",
-    "culling.effects.MixinEffectRenderer",
-    "culling.effects.MixinEntityParticleEmitter",
-    "gui.MixinGuiChat",
-    "gui.MixinGuiContainer",
-    "gui.MixinGuiIngame",
+    "MixinAbstractClientPlayer",
+    "MixinEntityRenderer",
+    "MixinMinecraft",
+
     "gui.MixinGuiInventory",
+    "gui.MixinGuiContainer",
     "gui.MixinGuiMainMenu",
-    "gui.MixinGuiNewChat"
+    "gui.MixinShaderGroup",
+    "gui.MixinGuiNewChat",
+    "gui.MixinGuiScreen",
+    "gui.MixinGuiIngame",
+    "gui.MixinGuiChat",
+
+    "performance.effects.MixinEntityParticleEmitter",
+    "performance.effects.MixinEffectRenderer",
+    "performance.MixinEntityOtherPlayerMP",
+    "performance.MixinEntityLivingBase",
+    "performance.MixinRenderManager",
+    "performance.MixinRenderGlobal",
+    "performance.MixinMapRenderer",
+    "performance.MixinEnumFacing",
+    "performance.MixinEntity",
+    "performance.MixinBlock",
+    "performance.MixinMath"
   ],
-  "mixins": [  ]
+
+  "mixins": [
+  ]
 }

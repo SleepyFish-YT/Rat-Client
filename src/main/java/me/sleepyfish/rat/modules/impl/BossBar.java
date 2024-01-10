@@ -8,12 +8,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class BossBar extends Module {
 
     public BossBar() {
-        super("Bossbar", "Change the Boss Bar HUD.");
+        super("Bossbar", "Change the Boss Bar HUD");
 
         this.setCustom(true);
         this.toggle();

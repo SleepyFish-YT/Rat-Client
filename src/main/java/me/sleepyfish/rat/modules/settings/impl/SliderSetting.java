@@ -8,21 +8,21 @@ import me.sleepyfish.rat.modules.settings.Setting;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class SliderSetting extends Setting {
 
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
+
+    private final double min;
+    private final double def;
+    private final double max;
+    private final double inc;
 
     protected double val;
 
-    private double min;
-    private double def;
-    private double max;
-    private double inc;
-
-    public SliderSetting(String name, String description, double def, double min, double max, double inc) {
+    public SliderSetting(final String name, final String description, final double def, final double min, final double max, final double inc) {
         super(name, "slider");
 
         this.name = name;
@@ -35,7 +35,7 @@ public class SliderSetting extends Setting {
         this.inc = inc;
     }
 
-    public SliderSetting(String name, double def, double min, double max, double inc) {
+    public SliderSetting(final String name, final double def, final double min, final double max, final  double inc) {
         super(name, "slider");
 
         this.name = name;
@@ -54,7 +54,7 @@ public class SliderSetting extends Setting {
 
     @Override
     public JsonElement getConfig() {
-        JsonObject data = new JsonObject();
+        final JsonObject data = new JsonObject();
         data.addProperty("type", this.getType());
         data.addProperty("value", this.getValue());
         return data;
@@ -62,10 +62,8 @@ public class SliderSetting extends Setting {
 
     @Override
     public void applyConfig(JsonObject json) {
-        if (!json.get("type").getAsString().equals(this.getType()))
-            return;
-
-        this.setValue(json.get("value").getAsDouble());
+        if (json.get("type").getAsString().equals(this.getType()))
+            this.val = json.get("value").getAsDouble();
     }
 
     public String getDescription() {
@@ -76,32 +74,16 @@ public class SliderSetting extends Setting {
         return def;
     }
 
-    public void setDef(double def) {
-        this.def = def;
-    }
-
     public double getMin() {
         return min;
-    }
-
-    public void setMin(double min) {
-        this.min = min;
     }
 
     public double getMax() {
         return max;
     }
 
-    public void setMax(double max) {
-        this.max = max;
-    }
-
     public double getInc() {
         return inc;
-    }
-
-    public void setInc(double inc) {
-        this.inc = inc;
     }
 
     public double getValue() {
@@ -110,21 +92,6 @@ public class SliderSetting extends Setting {
 
     public int getValueInt() {
         return (int) val;
-    }
-
-    public void setValue(double val) {
-        this.val = val;
-    }
-
-    @Override
-    public void disable() {
-        this.name = "";
-        this.description = "";
-        this.val = 0;
-        this.min = 0;
-        this.def = 0;
-        this.max = 0;
-        this.inc = 0;
     }
 
 }

@@ -6,7 +6,7 @@ import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class Ping extends Module {
 
@@ -25,9 +25,8 @@ public class Ping extends Module {
         } else {
             String text = "" + mc.getCurrentServerData().pingToServer;
 
-            if (this.pingText.isEnabled()) {
+            if (this.pingText.isEnabled())
                 text = "Ping: " + text;
-            }
 
             this.setText(text);
         }

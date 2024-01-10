@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class ClientConfig {
 
@@ -20,51 +20,53 @@ public class ClientConfig {
     private final String loadedConfigPrefix = "loaded-cfg~ ";
 
     public ClientConfig() {
-        File configDir = new File(System.getProperty("user.home") + File.separator + ".ratclient");
+        final File configDir = Rat.instance.fileManager.getMainPath();
         if (!configDir.exists())
             configDir.mkdir();
 
-        configFile = new File(configDir, fileName);
-        if (!configFile.exists()) {
+        this.configFile = new File(configDir, fileName);
+        if (!this.configFile.exists()) {
             try {
-                configFile.createNewFile();
-            } catch (Exception ignored) {
+                this.configFile.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
 
     public void saveConfig() {
-        List<String> config = new ArrayList<>();
+        final List<String> config = new ArrayList<>();
         config.add(loadedConfigPrefix + Rat.instance.configManager.getModuleCfg().getName());
 
         try {
-            PrintWriter writer;
-            writer = new PrintWriter(this.configFile);
-            for (String line : config)
+            final PrintWriter writer = new PrintWriter(this.configFile);
+            for (final String line : config)
                 writer.println(line);
 
             writer.close();
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void applyConfig() {
-        List<String> config = this.parseConfigFile();
+        final List<String> config = this.parseConfigFile();
 
-        for (String line : config) {
+        for (final String line : config) {
             if (line.startsWith(loadedConfigPrefix)) {
                 Rat.instance.configManager.loadConfigByName(line.replace(loadedConfigPrefix, ""));
             }
         }
     }
 
-    private List<String> parseConfigFile() {
-        List<String> configFileContents = new ArrayList<>();
+    private final List<String> parseConfigFile() {
+        final List<String> configFileContents = new ArrayList<>();
         Scanner reader = null;
 
         try {
             reader = new Scanner(this.configFile);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         while (reader.hasNextLine())
@@ -73,8 +75,8 @@ public class ClientConfig {
         return configFileContents;
     }
 
-    private List<String> StringListToList(String[] strings) {
-        List<String> array = new ArrayList<>();
+    private final List<String> StringListToList(final String[] strings) {
+        final List<String> array = new ArrayList<>();
         Collections.addAll(array, strings);
         return array;
     }

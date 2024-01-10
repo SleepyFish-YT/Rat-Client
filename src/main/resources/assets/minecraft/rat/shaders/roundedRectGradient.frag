@@ -15,7 +15,12 @@ vec3 createGradient(vec2 coords, vec3 color1, vec3 color2, vec3 color3, vec3 col
 	return color;
 }
 
-// Class from SMok Client by SleepyFish
+/**
+ * This class is from Rat Client.
+ * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
+ * This class contains code of Soar shit skid client made by a retard named eldodebug
+ * @author Nexuscript 2024
+ */
 void main() {
 	vec2 st = gl_TexCoord[0].st;
 	vec2 halfSize = rectSize * .5;

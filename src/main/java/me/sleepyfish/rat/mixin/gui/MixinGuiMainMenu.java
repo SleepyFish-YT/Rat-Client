@@ -1,22 +1,17 @@
 package me.sleepyfish.rat.mixin.gui;
 
 import me.sleepyfish.rat.Rat;
-import me.sleepyfish.rat.gui.GuiMainRat;
-import me.sleepyfish.rat.modules.Module;
-import me.sleepyfish.rat.modules.impl.Hotbar;
 import me.sleepyfish.rat.utils.misc.InputUtils;
+import me.sleepyfish.rat.utils.render.GuiUtils;
 import me.sleepyfish.rat.utils.misc.WindowsUtils;
+import me.sleepyfish.rat.utils.render.ColorUtils;
 import me.sleepyfish.rat.utils.render.RenderUtils;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 import me.sleepyfish.rat.utils.render.font.FontUtils;
-import me.sleepyfish.rat.utils.render.animations.normal.Animation;
-import me.sleepyfish.rat.utils.render.animations.normal.Direction;
-import me.sleepyfish.rat.utils.render.animations.normal.impl.EaseBackIn;
-import me.sleepyfish.rat.utils.render.animations.snowflake.RenderSnowflakes;
+import me.sleepyfish.rat.utils.render.RenderSnowflakes;
 
 import net.minecraft.client.gui.*;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraftforge.fml.client.GuiModList;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +25,7 @@ import java.awt.Color;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 @Mixin(GuiMainMenu.class)
 public abstract class MixinGuiMainMenu extends GuiScreen {
@@ -47,114 +42,65 @@ public abstract class MixinGuiMainMenu extends GuiScreen {
     @Shadow
     protected abstract void renderSkybox(int mouseX, int mouseY, float partialTicks);
 
-    public boolean useOldGui;
+    private GuiUtils.Button overExitGui;
+    private GuiUtils.Button overRatCosmetics;
+    private GuiUtils.Button overChangelogs;
+    private GuiUtils.Button overMinecraftSettings;
+    private GuiUtils.Button overMinecraftLanguage;
+    private GuiUtils.Button overForgeModButton;
+    private GuiUtils.Button overShutdown;
+    private GuiUtils.Button overAccounts;
+
+    private GuiUtils.Button overSingleplayer;
+    private GuiUtils.Button overMultiplayer;
+    private GuiUtils.Button overLinks;
+    private GuiUtils.Button overTheme;
+    private GuiUtils.Button overLinksExpanded;
+    private GuiUtils.Button overAccountsExpanded;
 
     private boolean inChangelogs;
     private boolean inCosmeticsGui;
-
-    private boolean overExitGui;
-    private boolean overRatCosmetics;
-    private boolean overChangelogs;
-    private boolean overMinecraftSettings;
-    private boolean overMinecraftLanguage;
-    private boolean overForgeModButton;
-    private boolean overShutdown;
-    private boolean overAccounts;
-
     private boolean linksFocused;
     private boolean accountFocused;
-
-    private boolean overSingleplayer;
-    private boolean overMultiplayer;
-    private boolean overLinks;
-    private boolean overTheme;
-
-    private boolean overLinksExpanded;
-    private boolean overAccountsExpanded;
-
     private boolean appliedBG;
+    public boolean  useOldGui;
 
-    public Animation introAnimation;
-    public boolean close;
+    public byte logoAnimation;
 
     @Inject(method = "initGui", at = @At("TAIL"))
     public void initGui(CallbackInfo ci) {
         if (Rat.instance.isDecember)
             RenderSnowflakes.resetSnowflakes();
 
-        Module hotbar = Rat.instance.moduleManager.getModByClass(Hotbar.class);
+        this.logoAnimation = 0;
 
-        if (hotbar.isEnabled()) {
-            int x = hotbar.getGuiX() + 80;
-            int y = hotbar.getGuiY() + 15;
+        this.useOldGui = false;
+        this.appliedBG = false;
 
-            if (hotbar.getGuiX() + hotbar.getWidth() > this.width)
-                x = this.width - ((hotbar.getWidth() + hotbar.getGuiX()) - hotbar.getGuiX()) - 2;
+        this.inChangelogs = false;
+        this.inCosmeticsGui = false;
 
-            if (hotbar.getGuiY() + hotbar.getHeight() > this.height)
-                y = this.height - ((hotbar.getGuiY() + hotbar.getHeight()) - hotbar.getGuiY()) - 2;
+        this.linksFocused = false;
+        this.accountFocused = false;
 
-            if (x < 0)
-                x = 2;
+        this.overAccounts = new GuiUtils.Button("", 10F, 10F, 15F, 15F, 5F);
+        this.overAccountsExpanded = new GuiUtils.Button("", 10F, 10F, FontUtils.getFontWidth(this.mc.getSession().getUsername()) + 8, 15F, 5F);
+        this.overLinks = new GuiUtils.Button("", 35F, 10F, 15F, 15F, 5F);
+        this.overLinksExpanded = new GuiUtils.Button("", 35F, 10F, 80F, 40F, 5F);
+        this.overShutdown = new GuiUtils.Button("", this.width - 25F, 10F, 15F, 15F, 5F);
+        this.overTheme = new GuiUtils.Button("", this.width - 50F, 10F, 15F, 15F, 5F);
 
-            if (y < 0)
-                y = 2;
+        final double wid = (this.width / 2F);
+        this.overMultiplayer = new GuiUtils.Button("Multiplayer", wid - 100F, this.height / 2F + 55F, 200F, 16F, 10F);
+        this.overSingleplayer = new GuiUtils.Button("Singleplayer", wid - 100F, this.height / 2F + 30F, 200F, 16F, 10F);
 
-            hotbar.setGuiX(x);
-            hotbar.setGuiY(y);
-        }
-
-        GuiMainRat.logoAnimation = 0;
-
-        useOldGui = false;
-        appliedBG = false;
-
-        inChangelogs = false;
-        inCosmeticsGui = false;
-
-        overTheme = false;
-        overExitGui = false;
-        overShutdown = false;
-        overAccounts = false;
-        overLinks = false;
-
-        linksFocused = false;
-        accountFocused = false;
-
-        overSingleplayer = false;
-        overMultiplayer = false;
-        overChangelogs = false;
-        overMinecraftSettings = false;
-        overMinecraftLanguage = false;
-        overForgeModButton = false;
-        overRatCosmetics = false;
-
-        overLinksExpanded = false;
-        overAccountsExpanded = false;
-
-        this.introAnimation = new EaseBackIn(450, 1, 2);
-        this.close = false;
-    }
-
-    private void applyBG() {
-        if (!this.appliedBG) {
-            if (this.useOldGui) {
-                String path = "textures/gui/title/background/panorama_";
-                titlePanoramaPaths = new ResourceLocation[] {
-                        new ResourceLocation(path + "0.png"), new ResourceLocation(path + "1.png"),
-                        new ResourceLocation(path + "2.png"), new ResourceLocation(path + "3.png"),
-                        new ResourceLocation(path + "4.png"), new ResourceLocation(path + "5.png")
-                };
-            } else {
-                titlePanoramaPaths = new ResourceLocation[] {
-                        new ResourceLocation(path + "0.png"), new ResourceLocation(path + "1.png"),
-                        new ResourceLocation(path + "2.png"), new ResourceLocation(path + "3.png"),
-                        new ResourceLocation(path + "4.png"), new ResourceLocation(path + "5.png")
-                };
-            }
-
-            this.appliedBG = true;
-        }
+        final double hei = this.height - 35F;
+        this.overMinecraftSettings = new GuiUtils.Button("", wid - 0F - 12.5F, hei, 20F, 20F, 5F);
+        this.overForgeModButton = new GuiUtils.Button("", wid + 50F - 12.5F, hei, 20F, 20F, 5F);
+        this.overMinecraftLanguage = new GuiUtils.Button("", wid + 25F - 12.5F, hei, 20F, 20F, 5F);
+        this.overRatCosmetics = new GuiUtils.Button("", wid - 25F - 12.5F, hei, 20F, 20F, 5F);
+        this.overChangelogs = new GuiUtils.Button("", wid - 50F - 12.5F, hei, 20F, 20F, 5F);
+        this.overExitGui = new GuiUtils.Button("", wid - 244F, this.height / 2F + 121F, 24F, 24F, 5F);
     }
 
     /**
@@ -163,113 +109,213 @@ public abstract class MixinGuiMainMenu extends GuiScreen {
      */
     @Inject(method = "drawScreen", at = @At("HEAD"), cancellable = true)
     public void drawScreen(int mouseX, int mouseY, float partialTicks, CallbackInfo ci) {
-
-        // Render not visable stuff to bypass white screen
-        RenderUtils.drawRound(0, 0, 1, 1, 0, new Color(0, 0, 0, 0));
-        FontUtils.drawFont("", 0, 0, new Color(0, 0, 0, 0));
-
-        this.applyBG();
-
         if (!this.useOldGui) {
             ci.cancel();
         } else {
             return;
         }
 
+        // Render not visable stuff to bypass white this
+
+        if (!this.appliedBG) {
+            String path = "textures/gui/title/background/panorama_";
+            if (!this.useOldGui) {
+                path = MixinGuiMainMenu.path;
+            }
+
+            titlePanoramaPaths = new ResourceLocation[] {
+                    new ResourceLocation(path + "0.png"), new ResourceLocation(path + "1.png"),
+                    new ResourceLocation(path + "2.png"), new ResourceLocation(path + "3.png"),
+                    new ResourceLocation(path + "4.png"), new ResourceLocation(path + "5.png")
+            };
+
+            this.appliedBG = true;
+        }
+
+        this.overAccountsExpanded.render();
+        this.overLinksExpanded.render();
+        this.overExitGui.render();
+
         InputUtils.mouseX = mouseX;
         InputUtils.mouseY = mouseY;
 
-        if(close) {
-            introAnimation.setDirection(Direction.BACKWARDS);
-            if(introAnimation.isDone(Direction.BACKWARDS)) {
-                mc.displayGuiScreen(null);
-            }
-        }
-
-        this.updateMouse();
         this.renderSkybox(mouseX, mouseY, partialTicks);
 
-        GuiMainRat.drawGui(this, this.width, this.height, this.inCosmeticsGui, this.inChangelogs, this.accountFocused, this.linksFocused,
-                this.overChangelogs, this.overRatCosmetics, this.overAccounts, this.overLinks, this.overTheme, this.overMinecraftSettings,
-                this.overMinecraftLanguage, this.overForgeModButton, this.overShutdown, this.overSingleplayer, this.overMultiplayer,
-                this.overExitGui, this);
+        // Main menu icon animation
+        if (Rat.instance.guiManager.useMixinMainMenuAnimation) {
+            if (this.logoAnimation < 60)
+                this.logoAnimation += 2;
+            else Rat.instance.guiManager.useMixinMainMenuAnimation = false;
+        } else {
+            this.logoAnimation = 60;
+        }
+
+        final Color newColor = new Color(185, 185, 185, (int) Math.min(this.logoAnimation * 2.5F, 250F));
+
+        // Render logo with animation
+        final byte logoSize = (byte) (this.logoAnimation + 40);
+        RenderUtils.drawImage("/gui/icon", this.width / 2 - (logoSize / 2), this.height / 2 - (logoSize - 70) - this.logoAnimation, logoSize, logoSize, newColor);
+
+        if (this.logoAnimation >= 60) {
+
+            // Rendering snowfall if its december
+            if (Rat.instance.isDecember) {
+                RenderSnowflakes.renderSnowfall(this);
+            }
+
+            // Mojang copyrights
+            String title = WindowsUtils.ratTitle;
+            if (Rat.instance.moduleManager.hasFailed()) {
+                title = WindowsUtils.ratTitle + " *";
+            }
+
+            FontUtils.drawFont(title, 4F, this.height - FontUtils.getFontHeight() - 2F, ColorUtils.getFontColor(1));
+            FontUtils.drawFont("Copyright Mojang Studios. Do not distribute!", this.width - FontUtils.getFontWidth("Copyright Mojang Studios. Do not distribute! "), this.height - FontUtils.getFontHeight() - 2F, ColorUtils.getFontColor(1));
+
+            if (!this.inCosmeticsGui && !this.inChangelogs) {
+                if (!this.accountFocused) {
+                    this.overAccounts.render();
+
+                    if (!this.linksFocused) {
+                        this.overLinks.render();
+                    } else {
+                        RenderUtils.drawRound(35F, 10F, 47F, 32F, 5F, ColorUtils.getBackgroundBrighterColor());
+                        FontUtils.drawFont("Discord", 37F, 12F, ColorUtils.getFontColor(this));
+                        FontUtils.drawFont("YouTube", 37F, 22F, ColorUtils.getFontColor(this));
+                        FontUtils.drawFont("Github", 37F, 32F, ColorUtils.getFontColor(this));
+                    }
+                } else {
+                    RenderUtils.drawRound(10F, 10F, FontUtils.getFontWidth(MinecraftUtils.mc.getSession().getUsername()) + 8F, 15F, 5F, ColorUtils.getBackgroundBrighterColor());
+                    FontUtils.drawFont(MinecraftUtils.mc.getSession().getUsername(), 14, 14, ColorUtils.getFontColor(this));
+                }
+
+                this.overChangelogs.render();
+                if (this.overChangelogs.isInside()) {
+                    FontUtils.drawFont(Rat.instance.getName() + " Changelogs", this.width / 2F - 48 - FontUtils.getFontWidth(Rat.instance.getName() + " Changelogs") / 2F, this.height - 50F, ColorUtils.getFontColor(this));
+                }
+
+                this.overRatCosmetics.render();
+                if (this.overRatCosmetics.isInside()) {
+                    FontUtils.drawFont(Rat.instance.getName() + " Cosmetics", this.width / 2F - 23 - FontUtils.getFontWidth(Rat.instance.getName() + " Cosmetics") / 2F, this.height - 50F, ColorUtils.getFontColor(this));
+                }
+
+                this.overMinecraftSettings.render();
+                if (this.overMinecraftSettings.isInside()) {
+                    FontUtils.drawFont("Minecraft Settings", this.width / 2F + 2 - FontUtils.getFontWidth("Minecraft Settings") / 2F, this.height - 50F, ColorUtils.getFontColor(this));
+                }
+
+                this.overMinecraftLanguage.render();
+                if (this.overMinecraftLanguage.isInside()) {
+                    FontUtils.drawFont("Language", this.width / 2F + 27 - FontUtils.getFontWidth("Language") / 2F, this.height - 50F, ColorUtils.getFontColor(this));
+                }
+
+                this.overForgeModButton.render();
+                if (this.overForgeModButton.isInside()) {
+                    FontUtils.drawFont("Forge Mods", this.width / 2F + 52 - FontUtils.getFontWidth("Forge Mods") / 2F, this.height - 50F, ColorUtils.getFontColor(this));
+                }
+
+                this.overShutdown.render();
+                if (this.overShutdown.isInside()) {
+                    final Color c = new Color(180, 70, 70, (int) this.overShutdown.getAnimationValue());
+                    RenderUtils.drawRound(this.width - 25F, 10F, 15F, 15F, 5F, c);
+                    FontUtils.drawFont("Quit", this.width - 25, 37, ColorUtils.getFontColor(this));
+                }
+
+                this.overTheme.render();
+                this.overSingleplayer.render();
+                this.overMultiplayer.render();
+            }
+
+            if (this.inCosmeticsGui) {
+                GuiUtils.drawCustomGui(1, this.width, this.height, true);
+
+                FontUtils.drawFont("Here's nothing yet...", (this.width / 2F - (FontUtils.getFontWidth("Here's nothing yet...") / 2F) + 15), (this.height / 2F) + 15F, ColorUtils.getFontColor(this));
+                RenderUtils.drawRound(this.width / 2F - 244, this.height / 2F + 121, 24, 24, 5, !overExitGui.isInside() ? ColorUtils.getBackgroundDarkerColor() : ColorUtils.getBackgroundDarkerColor().brighter());
+            }
+
+            if (this.inChangelogs) {
+                this.mc.displayGuiScreen(Rat.instance.guiManager.getRatGuiChangelog());
+            }
+        }
     }
 
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
     public void mouseClicked(int x, int y, int b, CallbackInfo ci) {
         if (!this.useOldGui) {
             ci.cancel();
-        } else return;
+        } else {
+            return;
+        }
 
         if (b == 0) {
-            if (InputUtils.isInside(width - FontUtils.getFontWidth("Copyright Mojang Studios. Do not distribute! "), height - FontUtils.getFontHeight() - 2F, FontUtils.getFontWidth("Copyright Mojang Studios. Do not distribute! "), FontUtils.getFontHeight())) {
-                
-            }
+            //if (InputUtils.isInside(width - FontUtils.getFontWidth("Copyright Mojang Studios. Do not distribute! "), height - FontUtils.getFontHeight() - 2F, FontUtils.getFontWidth("Copyright Mojang Studios. Do not distribute! "), FontUtils.getFontHeight())) {
+            //
+            //}
 
-            if (this.overTheme) {
+            if (this.overTheme.isInside()) {
                 this.useOldGui = true;
                 this.appliedBG = false;
             }
 
-            if (this.overExitGui) {
+            if (this.overExitGui.isInside()) {
                 this.inChangelogs = false;
                 this.inCosmeticsGui = false;
             }
 
-            if (this.overSingleplayer) {
+            if (this.overSingleplayer.isInside()) {
                 mc.displayGuiScreen(new GuiSelectWorld(this));
             }
 
-            if (this.overMultiplayer) {
+            if (this.overMultiplayer.isInside()) {
                 mc.displayGuiScreen(new GuiMultiplayer(this));
             }
 
-            if (this.overChangelogs) {
+            if (this.overChangelogs.isInside()) {
                 if (!this.inChangelogs) {
                     this.inChangelogs = true;
                 }
             }
 
-            if (this.overRatCosmetics) {
+            if (this.overRatCosmetics.isInside()) {
                 if (!this.inCosmeticsGui) {
                     this.inCosmeticsGui = true;
                 }
             }
 
-            if (this.overMinecraftSettings) {
-                mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
+            if (this.overMinecraftSettings.isInside()) {
+                this.mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
             }
 
-            if (this.overMinecraftLanguage) {
-                mc.displayGuiScreen(new GuiLanguage(this, mc.gameSettings, mc.getLanguageManager()));
+            if (this.overMinecraftLanguage.isInside()) {
+                this.mc.displayGuiScreen(new GuiLanguage(this, mc.gameSettings, mc.getLanguageManager()));
             }
 
-            if (this.overForgeModButton) {
-                mc.displayGuiScreen(new GuiModList(this));
+            if (this.overForgeModButton.isInside()) {
+                this.mc.displayGuiScreen(new GuiModList(this));
             }
 
-            if (this.overShutdown) {
-                mc.shutdown();
+            if (this.overShutdown.isInside()) {
+                this.mc.shutdown();
             }
 
-            if (this.overAccounts) {
+            if (this.overAccounts.isInside()) {
                 this.accountFocused = true;
             }
 
             if (this.accountFocused) {
-                if (!this.overAccounts) {
-                    if (!this.overAccountsExpanded) {
+                if (!this.overAccounts.isInside()) {
+                    if (!this.overAccountsExpanded.isInside()) {
                         this.accountFocused = false;
                     }
                 }
             }
 
-            if (this.overLinks) {
+            if (this.overLinks.isInside()) {
                 this.linksFocused = true;
             }
 
             if (this.linksFocused) {
-                if (!this.overLinks && this.overLinksExpanded) {
+                if (!this.overLinks.isInside() && this.overLinksExpanded.isInside()) {
                     if (InputUtils.isInside(35F, 10F, 80F, 10F)) {
                         WindowsUtils.openURL(Rat.instance.getDiscord());
                     }
@@ -283,8 +329,8 @@ public abstract class MixinGuiMainMenu extends GuiScreen {
                     }
                 }
 
-                if (!this.overLinks) {
-                    if (!this.overLinksExpanded) {
+                if (!this.overLinks.isInside()) {
+                    if (!this.overLinksExpanded.isInside()) {
                         this.linksFocused = false;
                     }
                 }
@@ -319,6 +365,7 @@ public abstract class MixinGuiMainMenu extends GuiScreen {
         }
     }
 
+        /*
     public void updateMouse() {
         if (!this.inCosmeticsGui && !this.inChangelogs) {
             this.overAccounts = InputUtils.isInside(10F, 10F, 15F, 15F);
@@ -338,5 +385,6 @@ public abstract class MixinGuiMainMenu extends GuiScreen {
             this.overExitGui = InputUtils.isInside(this.width / 2F - 244F, this.height / 2F + 121F, 24F, 24F);
         }
     }
+    */
 
 }

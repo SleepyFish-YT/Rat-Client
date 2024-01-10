@@ -8,7 +8,7 @@ import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.render.ColorUtils;
 import me.sleepyfish.rat.utils.render.RenderUtils;
 import me.sleepyfish.rat.utils.render.font.FontUtils;
-import me.sleepyfish.rat.utils.cosmetics.impl.capes.Cape;
+import me.sleepyfish.rat.utils.cosmetics.impl.Cape;
 import me.sleepyfish.rat.utils.render.animations.simple.SimpleAnimation;
 
 import net.minecraft.client.gui.GuiScreen;
@@ -20,12 +20,12 @@ import java.awt.Color;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class GuiRatCosmetic extends GuiScreen {
 
-    private double scrollY;
     private SimpleAnimation scrollAnimation;
+    private double scrollY;
 
     private SimpleAnimation playerYawAnimation;
     private SimpleAnimation playerPitchAnimation;
@@ -41,18 +41,24 @@ public class GuiRatCosmetic extends GuiScreen {
 
     @Override
     public void initGui() {
-        this.scrollAnimation = new SimpleAnimation(0.0F);
-        this.playerYawAnimation = new SimpleAnimation(0.0F);
-        this.playerPitchAnimation = new SimpleAnimation(0.0F);
+        this.playerYawAnimation = new SimpleAnimation(0F);
+        this.playerPitchAnimation = new SimpleAnimation(0F);
+
+        this.scrollAnimation = new SimpleAnimation(0F);
+        this.scrollY = 0;
 
         this.overExitGui = false;
         this.overRemoveCape = false;
+
+        Rat.instance.antiCheat.openGuiCheck();
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         InputUtils.mouseX = mouseX;
         InputUtils.mouseY = mouseY;
+
+        Rat.instance.guiManager.getRatGuiModuleMove().allowMoveHudModules = false;
 
         // Hover setter
         this.overExitGui = InputUtils.isInside(this.width / 2F - 244, this.height / 2F + 121, 24, 24);
@@ -61,7 +67,7 @@ public class GuiRatCosmetic extends GuiScreen {
         // Render gui background
         RenderUtils.drawRound(0, 0, this.width, this.height, 0, new Color(0, 0, 0, 95));
         GuiUtils.drawCustomGui(1, this.width, this.height, true);
-        GuiUtils.drawLogo(this.width, this.height, 2);
+        GuiUtils.drawLogo(this.width, this.height, false);
 
         // Render thePlayer
         this.playerPitchAnimation.setAnimation(this.height / 2F + 30 + (-InputUtils.mouseY), 12);
@@ -72,16 +78,16 @@ public class GuiRatCosmetic extends GuiScreen {
 
         float scrollY = scrollAnimation.getValue();
 
-        int index = 0;
-        int index2 = 1;
-        int offsetX = 45;
-        int offsetY = 15;
+        short index = 0;
+        short index2 = 1;
+        short offsetX = 45;
+        short offsetY = 15;
 
         GlUtils.startScissors();
         GuiUtils.drawCustomGui(1, this.width, this.height, true);
         GlUtils.readScissors(1);
 
-        for (Cape c : Rat.instance.cosmeticUtils.getInventoryCapes()) {
+        for (final Cape c : Rat.instance.cosmeticUtils.getInventoryCapes()) {
 
             if (Rat.instance.cosmeticUtils.getCurrentCape() == c.getName()) {
                 RenderUtils.drawOutline(this.width / 2F - 243 + offsetX - 3, this.height / 2F - 150 + offsetY - 3 + scrollY, 60 + 6, 90 + 6, 2, 12, ColorUtils.getOutilneColor());
@@ -127,7 +133,7 @@ public class GuiRatCosmetic extends GuiScreen {
                 }
 
                 case DOWN: {
-                    double maxScale = (Rat.instance.cosmeticUtils.getInventoryCapes().size() * 0.5D);
+                    final byte maxScale = (byte) (Rat.instance.cosmeticUtils.getInventoryCapes().size() * 0.5D);
 
                     if (this.scrollY > -(index * maxScale))
                         this.scrollY -= 20;
@@ -161,16 +167,16 @@ public class GuiRatCosmetic extends GuiScreen {
         } else if (this.overRemoveCape) {
             Rat.instance.cosmeticUtils.setCurrentCape("None");
         } else {
-            int index = 0;
-            int index2 = 1;
-            int offsetX = 45;
-            int offsetY = 15;
+            short index = 0;
+            short index2 = 1;
+            short offsetX = 45;
+            short offsetY = 15;
 
             GlUtils.startScissors();
             GuiUtils.drawCustomGui(1, this.width, this.height, true);
             GlUtils.readScissors(1);
 
-            for (Cape c : Rat.instance.cosmeticUtils.getInventoryCapes()) {
+            for (final Cape c : Rat.instance.cosmeticUtils.getInventoryCapes()) {
 
                 if (InputUtils.isInside(this.width / 2F - 243 + offsetX + 8, this.height / 2F - 150 + offsetY + 6 + this.scrollAnimation.getValue(), 44, 70)) {
                     Rat.instance.cosmeticUtils.setCurrentCape(c.getName());

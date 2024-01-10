@@ -9,6 +9,7 @@ import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.render.ColorUtils;
 import me.sleepyfish.rat.modules.settings.Setting;
 import me.sleepyfish.rat.utils.render.RenderUtils;
+import me.sleepyfish.rat.modules.impl.Performance;
 import me.sleepyfish.rat.utils.render.font.FontUtils;
 import me.sleepyfish.rat.modules.settings.impl.KeybindSetting;
 import me.sleepyfish.rat.utils.render.animations.simple.SimpleAnimation;
@@ -22,25 +23,23 @@ import java.awt.Color;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class GuiRatModuleMenu extends GuiScreen {
 
-    private double scrollY;
     private SimpleAnimation scrollAnimation;
+    private double scrollY;
 
     public boolean overSlider;
-    public boolean sliderMoving;
-
-    private boolean overModuleExitGui;
-    private boolean overEditHudLayout;
-
-    private boolean overConfigs;
 
     public boolean inModuleSetting;
     public Module moduleSettingMod;
 
     private final GuiScreen parent;
+
+    private GuiUtils.Button overConfigs;
+    private GuiUtils.Button overEditHudLayout;
+    private GuiUtils.Button overModuleExitGui;
 
     public GuiRatModuleMenu(GuiScreen parent) {
         this.parent = parent;
@@ -48,79 +47,80 @@ public class GuiRatModuleMenu extends GuiScreen {
 
     @Override
     public void initGui() {
-        this.scrollAnimation = new SimpleAnimation(0.0F);
+        this.scrollAnimation = new SimpleAnimation(0F);
+        this.scrollY = 0;
 
-        this.overSlider = false;
-        this.sliderMoving = false;
+        this.overSlider   = false;
 
-        this.overModuleExitGui = false;
-        this.overEditHudLayout = false;
-        this.overConfigs = false;
+        this.overModuleExitGui = new GuiUtils.Button("", this.width / 2F + 222, this.height / 2F - 145F, 20, 20, 4F);
+        this.overEditHudLayout = new GuiUtils.Button("Edit Layout", this.width / 2F - 248, this.height / 2F + 123F, 98, 15, 7F);
+        this.overConfigs       = new GuiUtils.Button("Configs", this.width / 2F - 248, this.height / 2F - 115F, 98, 15, 4F);
 
         this.moduleSettingMod = null;
         this.inModuleSetting = false;
+
+        if (Rat.instance.fileManager.hasOptifine()) {
+            if (Performance.fastMath.isEnabled()) {
+                StringBuilder content = Rat.instance.fileManager.readOptifineConfig();
+                Rat.instance.fileManager.setContentBasedOnCondition(content, content.toString(), true);
+            }
+        }
+
+        Rat.instance.antiCheat.openGuiCheck();
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void drawScreen(final int mouseX, int mouseY, float partialTicks) {
         InputUtils.mouseX = mouseX;
         InputUtils.mouseY = mouseY;
 
         Rat.instance.guiManager.getRatGuiModuleMove().allowMoveHudModules = false;
-        float scrollY = scrollAnimation.getValue();
+        final float scrollY = scrollAnimation.getValue();
 
         // Render gui background
         RenderUtils.drawRound(0, 0, this.width, this.height, 0, new Color(0, 0, 0, 95));
         GuiUtils.drawCustomGui(1, this.width, this.height, false);
-        GuiUtils.drawLogo(this.width, this.height, 2);
+        GuiUtils.drawLogo(this.width, this.height, false);
         RenderUtils.drawImage("/gui/icon_text", this.width / 2 - 238, this.height / 2 - 145, 80, 20);
 
+        final float calcX = this.width / 2F;
+        final float calcY = this.height / 2F;
+
         if (!this.inModuleSetting && this.moduleSettingMod == null) {
+            this.overSlider = InputUtils.isInside(calcX + 236, calcY - 115, 8, 250);
 
-            this.overModuleExitGui = InputUtils.isInside(this.width / 2F + 222, this.height / 2F - 145, 20, 20);
-            this.overEditHudLayout = InputUtils.isInside(this.width / 2F - 248, this.height / 2F + 123, 98, 15);
-            this.overConfigs = InputUtils.isInside(this.width / 2F - 248, this.height / 2F - 115, 98, 15);
+            GuiUtils.drawHorizontalSlider(this.width, this.height, scrollY / 4.45F, ColorUtils.getBackgroundDarkerColor(),
+                    overSlider ? ColorUtils.getBackgroundDarkerColor().brighter().brighter().brighter() : ColorUtils.getBackgroundDarkerColor().brighter());
 
-            this.overSlider = InputUtils.isInside(this.width / 2F + 236, this.height / 2F - 115, 8, 250);
+            // RenderUtils.drawRound(calcX - 50, calcY - 140F, 40, 15, 2, this.overModuleTab ? ColorUtils.getBackgroundDarkerColor().brighter() : ColorUtils.getBackgroundDarkerColor());
 
-            GuiUtils.drawHorizontalSlider(this.width, this.height, scrollY - 15, ColorUtils.getBackgroundDarkerColor(),
-                    (overSlider || sliderMoving) ? ColorUtils.getBackgroundDarkerColor().brighter().brighter().brighter() : ColorUtils.getBackgroundDarkerColor().brighter());
+            this.overModuleExitGui.render();
 
-            // RenderUtils.drawRound(this.width / 2F - 50, this.height / 2F - 140F, 40, 15, 2, this.overModuleTab ? ColorUtils.getBackgroundDarkerColor().brighter() : ColorUtils.getBackgroundDarkerColor());
+            RenderUtils.drawImage("/gui/icons/cross", (int) (calcX + 222 + (20 - 14) / 2F),
+                    (int) (calcY - 145 + (21 - 14) / 2F), 14, 14, ColorUtils.getIconColorAlpha());
 
-            // Exit button with icon
-            RenderUtils.drawRound(this.width / 2F + 222, this.height / 2F - 145, 20, 20, 5, !this.overModuleExitGui ?
-                    ColorUtils.getBackgroundDarkerColor().brighter() : ColorUtils.getBackgroundDarkerColor().darker());
-            RenderUtils.drawImage("/gui/icons/cross", (int) (this.width / 2F + 222 + (20 - 14) / 2F),
-                    (int) (this.height / 2F - 145 + (21 - 14) / 2F), 14, 14, ColorUtils.getIconColorAlpha());
-
-            // Edit Hud button
-            RenderUtils.drawRound(this.width / 2F - 248, this.height / 2F + 123, 98, 15, 5,
-                    !this.overEditHudLayout ? ColorUtils.getBlueColor() : ColorUtils.getBlueColor().darker());
-
-            // Config button
-            RenderUtils.drawRound(this.width / 2F - 248, this.height / 2F - 115, 98, 15, 5,
-                    !this.overConfigs ? ColorUtils.getIconColor() : ColorUtils.getIconColor().darker());
+            this.overEditHudLayout.render();
+            this.overConfigs.render();
 
             GlUtils.startScissors();
-            RenderUtils.drawRoundCustom(this.width / 2F - 250F, this.height / 2F - 120F, 497F, 1F,
+            RenderUtils.drawRoundCustom(calcX - 250F, calcY - 120F, 497F, 1F,
                     10F, Color.white, true, false, false, true);
-            RenderUtils.drawRoundCustom(this.width / 2F - 213F + 65F, this.height / 2F - 100F - 20F, 395F, 260F,
+            RenderUtils.drawRoundCustom(calcX - 213F + 65F, calcY - 100F - 20F, 395F, 260F,
                     10F, Color.white, false, false, true, false);
             GlUtils.readScissors(1);
 
-            int index = 0;
-            int index2 = 1;
-            int offsetX = 100;
-            int offsetY = 38;
+            short index = 0;
+            short index2 = 1;
+            short offsetX = 100;
+            short offsetY = 38;
 
-            for (Module mod : Rat.instance.moduleManager.getModules()) {
-                GuiUtils.drawModuleComponent(mod, this.width / 2F - 240 + offsetX, this.height / 2F - 145 + offsetY - 1 + scrollY);
+            for (final Module mod : Rat.instance.moduleManager.getModules()) {
+                GuiUtils.drawModuleComponent(mod, calcX - 240 + offsetX, calcY - 145 + offsetY - 1 + scrollY);
 
                 // Module hover setter
-                mod.overModule  = InputUtils.isInside(this.width / 2F - 240 + offsetX, this.height / 2F - 145 + offsetY - 1 + scrollY, 115, 115);
-                mod.overSetting = InputUtils.isInside(this.width / 2F - 242 + offsetX, this.height / 2F - 70 + offsetY - 1 + scrollY, 117, 20);
-                mod.overEnable  = mod.canBeEnabled() && InputUtils.isInside(this.width / 2F - 242 + offsetX, this.height / 2F - 50 + offsetY - 1 + scrollY, 117, 20);
+                mod.overModule  = InputUtils.isInside(calcX - 240 + offsetX, calcY - 145 + offsetY - 1 + scrollY, 115, 115);
+                mod.overSetting = InputUtils.isInside(calcX - 242 + offsetX, calcY - 70 + offsetY - 1 + scrollY, 117, 20);
+                mod.overEnable  = mod.canBeEnabled() && InputUtils.isInside(calcX - 242 + offsetX, calcY - 50 + offsetY - 1 + scrollY, 117, 20);
 
                 index++;
                 offsetX += 125;
@@ -145,14 +145,15 @@ public class GuiRatModuleMenu extends GuiScreen {
                         break;
 
                     case DOWN:
-                        int maxScale = (Rat.instance.moduleManager.getCount() * 2) - 18;
+                        final byte maxScale = 36;
 
-                        if (this.scrollY > -(index * maxScale))
+                        if (this.scrollY > -(index * maxScale)) {
                             this.scrollY -= 20;
-
-                        if (index > 5) {
-                            if (this.scrollY < -(index * maxScale))
-                                this.scrollY = -(index * maxScale);
+                        } else {
+                            if (index > 5) {
+                                if (this.scrollY < -(index * maxScale))
+                                    this.scrollY = -(index * maxScale);
+                            }
                         }
                         break;
                 }
@@ -161,18 +162,13 @@ public class GuiRatModuleMenu extends GuiScreen {
             this.scrollAnimation.setAnimation((float) this.scrollY, 32);
 
             GlUtils.endScissors();
-            FontUtils.drawFont("Configs", this.width / 2F - 236, this.height / 2F - 110, ColorUtils.getFontColor(this));
-            FontUtils.drawFont("Edit HUD Layout", this.width / 2F - 236, this.height / 2F + 127, ColorUtils.getFontColor(this));
         } else {
-            this.overModuleExitGui = false;
-            this.overEditHudLayout = false;
-            this.overConfigs = false;
             this.overSlider = false;
 
-            FontUtils.drawFont(this.moduleSettingMod.getDescription(), this.width / 2F - 115, this.height / 2F - 113, ColorUtils.getFontColor(this));
-            RenderUtils.drawRound(this.width / 2F - 140, this.height / 2F - 100, 370, 5, 2, ColorUtils.getBackgroundDarkerColor().darker().darker().darker().darker());
+            FontUtils.drawFont(this.moduleSettingMod.getDescription(), calcX - 115, calcY - 113, ColorUtils.getFontColor(this));
+            RenderUtils.drawRound(calcX - 140, calcY - 100, 370, 5, 2, ColorUtils.getBackgroundDarkerColor().darker().darker().darker().darker());
 
-            GuiUtils.drawModuleSettingGui(this.moduleSettingMod, this.width / 2F - 135, this.height / 2F - 80);
+            GuiUtils.drawModuleSettingGui(this.moduleSettingMod, calcX - 135, calcY - 80);
         }
     }
 
@@ -180,17 +176,17 @@ public class GuiRatModuleMenu extends GuiScreen {
     public void mouseClicked(int x, int y, int b) {
         if (b == InputUtils.MOUSE_LEFT) {
             if (!this.inModuleSetting && this.moduleSettingMod == null) {
-                if (this.overModuleExitGui || this.overEditHudLayout) {
+                if (this.overModuleExitGui.isInside() || this.overEditHudLayout.isInside()) {
                     SoundUtils.playClick();
                     mc.displayGuiScreen(this.parent);
                 }
 
-                if (this.overConfigs) {
+                if (this.overConfigs.isInside()) {
                     SoundUtils.playClick();
                     mc.displayGuiScreen(Rat.instance.guiManager.getRatGuiConfig());
                 }
 
-                for (Module mod : Rat.instance.moduleManager.getModules()) {
+                for (final Module mod : Rat.instance.moduleManager.getModules()) {
                     if (mod.overSetting) {
                         SoundUtils.playClick();
                         this.moduleSettingMod = mod;
@@ -215,7 +211,7 @@ public class GuiRatModuleMenu extends GuiScreen {
                 if (!this.moduleSettingMod.isReBinding)
                     return;
 
-                for (Setting setting : this.moduleSettingMod.getSettings()) {
+                for (final Setting setting : this.moduleSettingMod.getSettings()) {
                     if (setting instanceof KeybindSetting) {
                         ((KeybindSetting) setting).keycode = key;
                         this.moduleSettingMod.isReBinding = false;
@@ -234,36 +230,12 @@ public class GuiRatModuleMenu extends GuiScreen {
                     this.inModuleSetting = false;
                 }
             } else {
-                for (Module mod : Rat.instance.moduleManager.getModules()) {
+                for (final Module mod : Rat.instance.moduleManager.getModules()) {
                     if (mod.isHudMod())
                         mod.setMoving(false);
                 }
 
                 mc.displayGuiScreen(this.parent);
-            }
-        }
-    }
-
-    public void modDrawUpdateAndHover() {
-        for (Module mod : Rat.instance.moduleManager.getModules()) {
-
-            if (mod.isHudMod()) {
-                if (mod.isEnabled()) {
-
-                    if (mod.mc.thePlayer != null) {
-                        mod.renderUpdate();
-                        mod.drawComponent();
-                    }
-
-                    if (InputUtils.isInside(mod.getGuiX() - 8F, mod.getGuiY() - 5F, mod.getWidth() + 16, mod.getHeight())) {
-                        if (Rat.instance.guiManager.getRatGuiModuleMove().allowMoveHudModules) {
-                            Rat.instance.guiManager.getRatGuiModuleMove().overAModule = true;
-                            mod.drawHover();
-                        }
-                    } else {
-                        Rat.instance.guiManager.getRatGuiModuleMove().overAModule = false;
-                    }
-                }
             }
         }
     }

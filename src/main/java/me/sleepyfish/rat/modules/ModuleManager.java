@@ -3,7 +3,9 @@ package me.sleepyfish.rat.modules;
 import me.sleepyfish.rat.modules.hud.*;
 import me.sleepyfish.rat.modules.impl.*;
 import me.sleepyfish.rat.modules.cheat.*;
+import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
+import me.sleepyfish.rat.modules.settings.SettingModule;
 
 import org.lwjgl.input.Keyboard;
 
@@ -12,12 +14,12 @@ import java.util.ArrayList;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class ModuleManager {
 
-    private boolean interesting = false;
-    private ArrayList<Module> modules;
+    private boolean interesting;
+    private final ArrayList<Module> modules;
 
     public ModuleManager() {
         this.modules = new ArrayList<>();
@@ -50,32 +52,23 @@ public class ModuleManager {
         this.modules.add(new Tablist());
 
         // Interesting  -------------------------
-        if (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) && Keyboard.isKeyDown(Keyboard.KEY_H) || MinecraftUtils.mc.getSession().getUsername().startsWith("SleepyFish_Y")) {
-            this.interesting = true;
-
-            this.modules.add(new Eagle());
-            this.modules.add(new TriggerBot());
-            this.modules.add(new Clicker());
-            this.modules.add(new FastPlace());
-            this.modules.add(new FruitBridgeAssist());
+        if (InputUtils.isKeyDown(Keyboard.KEY_RSHIFT) && InputUtils.isKeyDown(Keyboard.KEY_H)) {
+            if (MinecraftUtils.mc.getSession().getUsername().startsWith("SleepyFish_YT"))
+                this.interesting = true;
         }
+
+        this.modules.add(new Clicker());
+        this.modules.add(new Eagle());
+        this.modules.add(new FastPlace());
+        this.modules.add(new FruitBridgeAssist());
+        this.modules.add(new TriggerBot());
     }
 
     public int getCount() {
         return this.modules.size();
     }
 
-    public void unInject() {
-        this.modules.forEach(Module::unInject);
-        this.modules.clear();
-        this.modules = null;
-    }
-
-    public Module getModByClass(Class<?> modClass) {
-        return this.getModules().stream().filter(mod -> mod.getClass().equals(modClass)).findFirst().orElse(null);
-    }
-
-    public ArrayList<Module> getModules() {
+    public final ArrayList<Module> getModules() {
         return this.modules;
     }
 

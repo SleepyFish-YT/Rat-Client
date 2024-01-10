@@ -3,7 +3,7 @@ package me.sleepyfish.rat.event.function;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class EventPriority {
 

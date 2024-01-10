@@ -9,17 +9,17 @@ import me.sleepyfish.rat.utils.misc.InputUtils;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class KeybindSetting extends Setting {
 
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
 
     public int keycode;
     public final int oldKeycode;
 
-    public KeybindSetting(String name, int keycode) {
+    public KeybindSetting(final String name, final int keycode) {
         super(name, "bind");
 
         this.name = name;
@@ -29,7 +29,7 @@ public class KeybindSetting extends Setting {
         this.oldKeycode = keycode;
     }
 
-    public KeybindSetting(String name, String description, int keycode) {
+    public KeybindSetting(final String name, final String description, final int keycode) {
         super(name, "bind");
 
         this.name = name;
@@ -65,13 +65,6 @@ public class KeybindSetting extends Setting {
 
     public boolean isDown() {
         return InputUtils.isButtonDown(this.keycode);
-    }
-
-    @Override
-    public void disable() {
-        this.name = "";
-        this.description = "";
-        this.keycode = 0;
     }
 
 }

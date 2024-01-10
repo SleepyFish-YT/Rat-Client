@@ -8,47 +8,33 @@ import net.minecraft.client.gui.GuiScreen;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class GuiManager {
 
     public boolean useMixinMainMenuAnimation = true;
 
-    private GuiRatModuleMenu ratGuiModuleMenu;
-    private GuiRatModuleMove ratGuiModuleMove;
-    private GuiRatCosmetic ratGuiCosmetic;
-    private GuiChangelog ratGuiChangelog;
-    private GuiRatEmote ratGuiEmoteList;
-    private GuiRatConfig ratGuiConfig;
+    private final GuiRatModuleMove ratGuiModuleMove;
+    private final GuiChangelog ratGuiChangelog;
+
+    private final GuiRatModuleMenu ratGuiModuleMenu;
+    private final GuiRatCosmetic ratGuiCosmetic;
+    private final GuiRatEmote ratGuiEmoteList;
+    private final GuiRatConfig ratGuiConfig;
 
     public GuiManager() {
         this.ratGuiModuleMove = new GuiRatModuleMove();
+        this.ratGuiChangelog  = new GuiChangelog();
+
         this.ratGuiModuleMenu = new GuiRatModuleMenu(this.ratGuiModuleMove);
         this.ratGuiCosmetic   = new GuiRatCosmetic(this.ratGuiModuleMove);
-        this.ratGuiChangelog  = new GuiChangelog();
         this.ratGuiEmoteList  = new GuiRatEmote(this.ratGuiModuleMove);
-        this.ratGuiConfig  = new GuiRatConfig(ratGuiModuleMenu);
-    }
-
-    public void unInject() {
-        this.ratGuiModuleMenu = null;
-        this.ratGuiModuleMove = null;
-        this.ratGuiCosmetic   = null;
-
-        this.ratGuiChangelog.lines.clear();
-        this.ratGuiChangelog  = null;
-
-        this.ratGuiEmoteList  = null;
-        this.ratGuiConfig = null;
+        this.ratGuiConfig  = new GuiRatConfig(this.ratGuiModuleMenu);
     }
 
     public boolean inClickGui() {
-        GuiScreen s = MinecraftUtils.mc.currentScreen;
+        final GuiScreen s = MinecraftUtils.mc.currentScreen;
         return s == this.getRatGuiModuleMove() || s == this.getRatGuiModuleMenu() || s == this.getRatGuiCosmetic() || s == this.getRatGuiEmoteList();
-    }
-
-    public GuiRatModuleMenu getRatModuleGUI() {
-        return this.ratGuiModuleMenu;
     }
 
     public GuiRatModuleMenu getRatGuiModuleMenu() {

@@ -1,11 +1,11 @@
 package me.sleepyfish.rat.utils.cosmetics;
 
 import me.sleepyfish.rat.Rat;
+import me.sleepyfish.rat.utils.cosmetics.impl.Emote;
 import me.sleepyfish.rat.utils.misc.SoundUtils;
 import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 import me.sleepyfish.rat.utils.cosmetics.impl.Cosmetic;
-import me.sleepyfish.rat.utils.cosmetics.impl.capes.Cape;
-import me.sleepyfish.rat.utils.cosmetics.impl.emotes.Emote;
+import me.sleepyfish.rat.utils.cosmetics.impl.Cape;
 
 import net.minecraft.util.ResourceLocation;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class CosmeticManager {
 
@@ -88,23 +88,23 @@ public class CosmeticManager {
         this.cosmeticInventory = new ArrayList<>();
     }
 
-    public Cape getCapeByName(String name) {
+    public final Cape getCapeByName(final String name) {
         return this.getInventoryCapes().stream().filter(cosmetics -> cosmetics.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
-    private ResourceLocation loadResource(String path) {
+    private ResourceLocation loadResource(final String path) {
         return new ResourceLocation(MinecraftUtils.resourcePath + "/capes/" + path + ".png");
     }
 
-    private ResourceLocation loadRatResource(String path) {
+    private ResourceLocation loadRatResource(final String path) {
         return new ResourceLocation(MinecraftUtils.resourcePath + "/capes/rats/rat" + path + ".png");
     }
 
     public void setCapesAndEmoteListsFromInventory() {
-        ArrayList<Cape> capes = new ArrayList<>();
-        ArrayList<Emote> emotes = new ArrayList<>();
+        final ArrayList<Cape> capes = new ArrayList<>();
+        final ArrayList<Emote> emotes = new ArrayList<>();
 
-        for (Cosmetic cos : this.getInventory()) {
+        for (final Cosmetic cos : this.getInventory()) {
             if (cos instanceof Cape)
                 capes.add((Cape) cos);
 
@@ -116,24 +116,24 @@ public class CosmeticManager {
         this.inventoryEmotes = emotes;
     }
 
-    public String getCurrentCape() {
+    public final String getCurrentCape() {
         return this.currentCape;
     }
 
-    public void setCurrentCape(String currentCape) {
+    public void setCurrentCape(final String currentCape) {
         SoundUtils.playClick();
         this.currentCape = currentCape;
     }
 
-    public ArrayList<Cosmetic> getInventory() {
+    public final ArrayList<Cosmetic> getInventory() {
         return cosmeticInventory;
     }
 
-    public ArrayList<Cape> getInventoryCapes() {
+    public final ArrayList<Cape> getInventoryCapes() {
         return inventoryCapes;
     }
 
-    public ArrayList<Emote> getInventoryEmotes() {
+    public final ArrayList<Emote> getInventoryEmotes() {
         return inventoryEmotes;
     }
 

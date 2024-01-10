@@ -1,7 +1,7 @@
 package me.sleepyfish.rat.mixin.gui;
 
 import me.sleepyfish.rat.Rat;
-import me.sleepyfish.rat.modules.impl.Hotbar;
+import me.sleepyfish.rat.modules.hud.Hotbar;
 
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.Minecraft;
@@ -24,7 +24,7 @@ import java.awt.Color;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 @Mixin(GuiIngame.class)
 public abstract class MixinGuiIngame extends Gui {
@@ -46,24 +46,24 @@ public abstract class MixinGuiIngame extends Gui {
      */
     @Inject(method = "renderTooltip", at = @At("HEAD"), cancellable = true)
     public void renderTooltip(ScaledResolution sr, float partialTicks, CallbackInfo ci) {
-        if (Rat.instance.moduleManager.getModByClass(Hotbar.class).isEnabled()) {
+        if (Rat.instance.moduleFields.Hotbar.isEnabled()) {
             ci.cancel();
 
             if (this.mc.getRenderViewEntity() == this.mc.thePlayer) {
                 Hotbar.updatePos();
 
-                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                GlStateManager.color(1F, 1F, 1F, 1F);
                 this.mc.getTextureManager().bindTexture(widgetsTexPath);
-                EntityPlayer viewEntity = (EntityPlayer) this.mc.getRenderViewEntity();
 
-                int scaledWidth = Hotbar.posX;
-                float memZLevel = this.zLevel;
-                this.zLevel = -90.0F;
+                final EntityPlayer viewEntity = (EntityPlayer) this.mc.getRenderViewEntity();
+                final int scaledWidth = Hotbar.posX;
+                final float memZLevel = this.zLevel;
+                this.zLevel = -90F;
 
                 Hotbar.simpleAnimation.setAnimation(viewEntity.inventory.currentItem * 20, 20);
-                int itemSlotX = Hotbar.posX - 91 + (Hotbar.animated.isEnabled() ? (int) Hotbar.simpleAnimation.getValue() : (viewEntity.inventory.currentItem * 20));
 
                 if (Hotbar.clear.isEnabled()) {
+                    final int itemSlotX = Hotbar.posX - 91 + (Hotbar.animated.isEnabled() ? (int) Hotbar.simpleAnimation.getValue() : (viewEntity.inventory.currentItem * 20));
                     drawRect(itemSlotX, Hotbar.posY, itemSlotX + 22, Hotbar.posY, new Color(230, 230, 230, 180).getRGB());
                 } else {
                     this.drawTexturedModalRect(scaledWidth - 91, Hotbar.posY - 22, 0, 0, 182, 22);
@@ -79,10 +79,10 @@ public abstract class MixinGuiIngame extends Gui {
                 GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
                 RenderHelper.enableGUIStandardItemLighting();
 
-                for (int j = 0; j < 9; ++j) {
-                    int k = Hotbar.posX - 90 + j * 20 + 2;
-                    int l = Hotbar.posY - 16 - 3;
-                    this.renderHotbarItem(j, k, l, partialTicks, viewEntity);
+                for (short off = 0; off < 9; ++off) {
+                    final int xx = Hotbar.posX - 90 + off * 20 + 2;
+                    final int yy = Hotbar.posY - 16 - 3;
+                    this.renderHotbarItem(off, xx, yy, partialTicks, viewEntity);
                 }
 
                 RenderHelper.disableStandardItemLighting();

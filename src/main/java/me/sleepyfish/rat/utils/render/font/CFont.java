@@ -15,13 +15,13 @@ import org.lwjgl.opengl.GL11;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class CFont {
 
-    float imgSize = 1024.0F;
-    CFont.CharData[] charData = new CFont.CharData[256];
-    Font font;
+    public final float imgSize = 1024F;
+    public final CFont.CharData[] charData = new CFont.CharData[256];
+    public final Font font;
     boolean antiAlias;
     boolean fractionalMetrics;
     protected int fontHeight = -1;
@@ -40,7 +40,8 @@ public class CFont {
 
         try {
             return new DynamicTexture(img);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -67,7 +68,7 @@ public class CFont {
         int positionX = 0;
         int positionY = 1;
 
-        for (int index = 0; index < chars.length; ++index) {
+        for (short index = 0; index < chars.length; ++index) {
             char c = (char) index;
             CFont.CharData charData = new CFont.CharData();
             Rectangle2D dimensions = fontMetrics.getStringBounds(String.valueOf(c), graphics);
@@ -105,7 +106,8 @@ public class CFont {
     public void drawChar(CFont.CharData[] chars, char c, float x, float y) throws ArrayIndexOutOfBoundsException {
         try {
             this.drawQuad(x, y, (float) chars[c].width, (float) chars[c].height, (float) chars[c].storedX, (float) chars[c].storedY, (float) chars[c].width, (float) chars[c].height);
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -140,11 +142,6 @@ public class CFont {
             this.fractionalMetrics = fractionalMetrics;
             this.tex = this.setupTexture(this.font, this.antiAlias, fractionalMetrics, this.charData);
         }
-    }
-
-    public void setFont(Font font) {
-        this.font = font;
-        this.tex = this.setupTexture(font, this.antiAlias, this.fractionalMetrics, this.charData);
     }
 
     protected static class CharData {

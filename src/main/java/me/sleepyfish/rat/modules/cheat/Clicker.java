@@ -18,7 +18,7 @@ import java.util.Random;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class Clicker extends Module {
 
@@ -73,10 +73,10 @@ public class Clicker extends Module {
                 return;
 
             if (this.checkBlocks.isEnabled()) {
-                BlockPos blockPos = mc.objectMouseOver.getBlockPos();
+                final BlockPos blockPos = mc.objectMouseOver.getBlockPos();
 
                 if (blockPos != null) {
-                    Block block = PlayerUtils.getBlock(blockPos);
+                    final Block block = PlayerUtils.getBlock(blockPos);
                     if (block != Blocks.air && block != Blocks.lava && block != Blocks.water && block != Blocks.flowing_lava && block != Blocks.flowing_water)
                         return;
                 }

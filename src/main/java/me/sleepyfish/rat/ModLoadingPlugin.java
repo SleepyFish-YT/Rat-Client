@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 @IFMLLoadingPlugin.TransformerExclusions("me/sleepyfish/rat")
 public class ModLoadingPlugin implements IFMLLoadingPlugin {
@@ -42,7 +42,7 @@ public class ModLoadingPlugin implements IFMLLoadingPlugin {
 
     static class MainMethodInjector extends ClassVisitor {
 
-        public MainMethodInjector(ClassVisitor cv) {
+        public MainMethodInjector(final ClassVisitor cv) {
             super(Opcodes.ASM5, cv);
         }
 
@@ -81,9 +81,9 @@ public class ModLoadingPlugin implements IFMLLoadingPlugin {
         }
 
         private byte[] transformMainClass(byte[] bytes) {
-            ClassReader reader = new ClassReader(bytes);
-            ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
-            ClassVisitor visitor = new MainMethodInjector(writer);
+            final ClassReader reader = new ClassReader(bytes);
+            final ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+            final ClassVisitor visitor = new MainMethodInjector(writer);
             reader.accept(visitor, 0);
             return writer.toByteArray();
         }

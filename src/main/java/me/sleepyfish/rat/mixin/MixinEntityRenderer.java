@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 @Mixin(EntityRenderer.class)
 public abstract class MixinEntityRenderer {
@@ -37,8 +37,9 @@ public abstract class MixinEntityRenderer {
 
     @Redirect(method = "updateCameraAndRender", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;setAngles(FF)V"))
     public void updateCameraAndRender(EntityPlayerSP entityPlayerSP, float yaw, float pitch) {
-        EventPlayerHeadRotation event = new EventPlayerHeadRotation(yaw, pitch);
+        final EventPlayerHeadRotation event = new EventPlayerHeadRotation(yaw, pitch);
         event.call();
+
         yaw = event.getYaw();
         pitch = event.getPitch();
 
@@ -54,7 +55,7 @@ public abstract class MixinEntityRenderer {
         prevRotationPitch = MinecraftUtils.mc.getRenderViewEntity().prevRotationPitch;
         float roll = 0;
 
-        EventCameraRotation event = new EventCameraRotation(rotationYaw, rotationPitch, roll);
+        final EventCameraRotation event = new EventCameraRotation(rotationYaw, rotationPitch, roll);
         event.call();
 
         rotationYaw = event.getYaw();
@@ -95,7 +96,7 @@ public abstract class MixinEntityRenderer {
     public float orientCamera(Entity entity) {
         if (entity instanceof EntityPlayer) {
             if (Animations.oldSneak.isEnabled()) {
-                if (Rat.instance.moduleManager.getModByClass(Animations.class).isEnabled()) {
+                if (Rat.instance.moduleFields.Animations.isEnabled()) {
                     return Animations.getOldSneakValue(entity);
                 }
             }
@@ -106,28 +107,31 @@ public abstract class MixinEntityRenderer {
 
     @Redirect(method = "setupCameraTransform", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/EntityRenderer;setupViewBobbing(F)V"))
     public void setupCameraTransform(EntityRenderer entityRenderer, float f) {
-        //if (!Rat.instance.moduleManager.getModByClass(MinimalBobbingMod.class).isEnabled())
+        //if (!Rat.instance.moduleManager.getModByClass(MinimalBobbingMod.isEnabled())
         //    this.setupViewBobbing(f);
     }
 
     @Redirect(method = "setupCameraTransform", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/EntityRenderer;hurtCameraEffect(F)V"))
     public void setupCameraTransform2(EntityRenderer entityRenderer, float f) {
-        //if (!Rat.instance.moduleManager.getModByClass(NoHurtcamMod.class).isEnabled())
+        //if (!Rat.instance.moduleManager.getModByClass(NoHurtcamMod.isEnabled())
         //    this.hurtCameraEffect(f);
     }
 
     @Inject(method = "renderHand", at = @At(value = "HEAD"))
     public void renderHand(float partialTicks, int xOffset, CallbackInfo callback) {
-        Minecraft mc = MinecraftUtils.mc;
-        if (mc.thePlayer != null && mc.objectMouseOver != null) {
-            if (mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                if (mc.gameSettings.keyBindAttack.isKeyDown() && mc.gameSettings.keyBindUseItem.isKeyDown()) {
-                    if (mc.thePlayer.getItemInUseCount() > 0 && (!mc.thePlayer.isSwingInProgress
-                            || mc.thePlayer.swingProgressInt >= ((IMixinEntityLivingBase) mc.thePlayer).accessArmSwingAnimationEnd()
-                            / 2 || mc.thePlayer.swingProgressInt < 0)) {
-                        if (Animations.oldBlock.isEnabled() && Rat.instance.moduleManager.getModByClass(Animations.class).isEnabled()) {
-                            mc.thePlayer.swingProgressInt = -1;
-                            mc.thePlayer.isSwingInProgress = true;
+        if (Animations.oldBlock.isEnabled()) {
+            if (Rat.instance.moduleFields.Animations.isEnabled()) {
+                final Minecraft mc = MinecraftUtils.mc;
+
+                if (mc.thePlayer != null && mc.objectMouseOver != null) {
+                    if (mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+                        if (mc.gameSettings.keyBindAttack.isKeyDown() && mc.gameSettings.keyBindUseItem.isKeyDown()) {
+                            if (mc.thePlayer.getItemInUseCount() > 0 && (!mc.thePlayer.isSwingInProgress
+                                    || mc.thePlayer.swingProgressInt >= ((IMixinEntityLivingBase) mc.thePlayer).accessArmSwingAnimationEnd()
+                                    / 2 || mc.thePlayer.swingProgressInt < 0)) {
+                                mc.thePlayer.swingProgressInt = -1;
+                                mc.thePlayer.isSwingInProgress = true;
+                            }
                         }
                     }
                 }

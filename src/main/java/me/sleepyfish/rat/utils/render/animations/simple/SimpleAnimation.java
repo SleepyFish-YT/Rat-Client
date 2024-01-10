@@ -3,19 +3,19 @@ package me.sleepyfish.rat.utils.render.animations.simple;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class SimpleAnimation {
 
     private float value;
     private long lastMS;
 
-    public SimpleAnimation(final float value){
+    public SimpleAnimation(final float value) {
         this.value = value;
         this.lastMS = System.currentTimeMillis();
     }
 
-    public void setAnimation(final float value, double speed){
+    public void setAnimation(final float value, double speed) {
 
         final long currentMS = System.currentTimeMillis();
         final long delta = currentMS - this.lastMS;
@@ -23,12 +23,11 @@ public class SimpleAnimation {
 
         double deltaValue = 0.0;
 
-        if(speed > 28) {
+        if (speed > 28) {
             speed = 28;
         }
 
-        if (speed != 0.0)
-        {
+        if (speed != 0.0) {
             deltaValue = Math.abs(value - this.value) * 0.35f / (10.0 / speed);
         }
 
@@ -39,7 +38,7 @@ public class SimpleAnimation {
         return value;
     }
 
-    public void setValue(float value) {
+    public void setValue(final float value) {
         this.value = value;
     }
 

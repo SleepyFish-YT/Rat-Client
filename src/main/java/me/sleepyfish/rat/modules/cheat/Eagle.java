@@ -10,7 +10,7 @@ import net.minecraft.client.settings.KeyBinding;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class Eagle extends Module {
 
@@ -64,7 +64,7 @@ public class Eagle extends Module {
         }
     }
 
-    private void setShift(boolean shift) {
+    private void setShift(final boolean shift) {
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindSneak.getKeyCode(), shift);
     }
 

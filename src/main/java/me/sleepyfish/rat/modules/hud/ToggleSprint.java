@@ -1,17 +1,16 @@
 package me.sleepyfish.rat.modules.hud;
 
 import me.sleepyfish.rat.modules.Module;
+import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.misc.PlayerUtils;
 import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 
 import net.minecraft.client.settings.KeyBinding;
 
-import org.lwjgl.input.Keyboard;
-
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class ToggleSprint extends Module {
 
@@ -44,11 +43,9 @@ public class ToggleSprint extends Module {
                                 this.setText("Flying");
                                 mc.thePlayer.capabilities.setFlySpeed(0.05F);
                             }
-
                         } else {
                             this.setText("Flying");
                             mc.thePlayer.capabilities.setFlySpeed(0.05F);
-
                         }
 
                         return;
@@ -57,8 +54,8 @@ public class ToggleSprint extends Module {
             }
         }
 
-        if (!Keyboard.isKeyDown(mc.gameSettings.keyBindSneak.getKeyCode())) {
-            if (Keyboard.isKeyDown(mc.gameSettings.keyBindSprint.getKeyCode())) {
+        if (!InputUtils.isKeyDown(mc.gameSettings.keyBindSneak.getKeyCode())) {
+            if (InputUtils.isKeyDown(mc.gameSettings.keyBindSprint.getKeyCode())) {
                 this.setText("Sprinting (Held)");
             } else {
                 KeyBinding.setKeyBindState(mc.gameSettings.keyBindSprint.getKeyCode(), true);

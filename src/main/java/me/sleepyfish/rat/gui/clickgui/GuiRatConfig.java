@@ -18,31 +18,37 @@ import org.lwjgl.input.Keyboard;
 
 import java.awt.Color;
 import java.awt.Desktop;
+import java.util.Objects;
 
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class GuiRatConfig extends GuiScreen {
 
-    private double scrollY;
     private SimpleAnimation scrollAnimation;
-    private boolean overExitGui;
-    private boolean overFolder;
+    private double scrollY;
 
-    private GuiScreen parent;
+    private final GuiScreen parent;
+
+    private GuiUtils.Button overExitGui;
+    private GuiUtils.Button overFolder;
 
     public GuiRatConfig(GuiScreen parent) {
         this.parent = parent;
+
+        Rat.instance.antiCheat.openGuiCheck();
     }
 
     @Override
     public void initGui() {
-        this.scrollAnimation = new SimpleAnimation(0.0F);
+        this.scrollAnimation = new SimpleAnimation(0F);
+
+        this.overExitGui = new GuiUtils.Button("", this.width / 2F - 244F, this.height / 2F + 121F, 24, 24, 7F);
+        this.overFolder = new GuiUtils.Button("", this.width / 2F - 244F, this.height / 2F + 90F, 24, 24, 7F);
+
         this.scrollY = 0;
-        this.overExitGui = false;
-        this.overFolder = false;
     }
 
     @Override
@@ -53,32 +59,33 @@ public class GuiRatConfig extends GuiScreen {
         // Render gui background
         RenderUtils.drawRound(0, 0, this.width, this.height, 0, new Color(0, 0, 0, 95));
         GuiUtils.drawCustomGui(1, this.width, this.height, true);
-        GuiUtils.drawLogo(this.width, this.height, 2);
+        GuiUtils.drawLogo(this.width, this.height, false);
 
-        // Hover setter
-        this.overExitGui = InputUtils.isInside(this.width / 2F - 244, this.height / 2F + 121, 24, 24);
-        this.overFolder = InputUtils.isInside(this.width / 2F - 244, this.height / 2F + 90, 24, 24);
+        this.overExitGui.render();
+        this.overFolder.render();
 
         if (!Rat.instance.configManager.getConfigs().isEmpty()) {
-
             GlUtils.startScissors();
             GuiUtils.drawCustomGui(3, this.width, this.height - 60, true);
             GlUtils.readScissors(1);
 
-            float scrollY = scrollAnimation.getValue();
+            final float scrollY = scrollAnimation.getValue();
 
-            int index = 0;
-            int index2 = 1;
-            int offsetX = 0;
-            int offsetY = 0;
+            short index = 0;
+            short index2 = 1;
+            short offsetX = 0;
+            short offsetY = 0;
 
-            for (Config c : Rat.instance.configManager.getConfigs()) {
-                int maxX = this.width / 2 - 170 + offsetX;
-                int maxY = (int) (this.height / 2 - 140 + offsetY + FontUtils.getFontHeight() + scrollY);
-                int maxWidth = 200;
+            for (final Config c : Rat.instance.configManager.getConfigs()) {
+                if (c == null)
+                    break;
 
-                String author = c.getData().get("author").getAsString();
-                String version = "Ver: " + c.getData().get("version").getAsString();
+                final int maxX = this.width / 2 - 170 + offsetX;
+                final int maxY = (int) (this.height / 2 - 140 + offsetY + FontUtils.getFontHeight() + scrollY);
+                final int maxWidth = 200;
+
+                String author = Objects.requireNonNull(c.getData()).get("author").getAsString();
+                String version = "Ver: " + Objects.requireNonNull(c.getData()).get("version").getAsString();
 
                 if (InputUtils.isInside(maxX, maxY, maxWidth, 30)) {
                     RenderUtils.drawRound(maxX, maxY, maxWidth, 30, 12F, ColorUtils.getBackgroundDarkerColorMoreAlpha().brighter());
@@ -89,7 +96,6 @@ public class GuiRatConfig extends GuiScreen {
                 FontUtils.drawFont(WindowsUtils.capitalizeFirstLetter(c.getName()), maxX + 15F, maxY + 12F, ColorUtils.getFontColor(this));
                 FontUtils.text14.drawString(author, maxX + maxWidth - FontUtils.text14.getStringWidth(author) - 5, maxY + 12F, ColorUtils.getFontColor(this));
                 FontUtils.text14.drawString(version, maxX + maxWidth - FontUtils.text14.getStringWidth(author) - 10 - FontUtils.text14.getStringWidth(version), maxY + 12F, ColorUtils.getFontColor(this));
-                //FontUtils.text14.drawString(created, maxX + maxWidth - FontUtils.text14.getStringWidth(author) - 5, maxY + 12F, ColorUtils.getFontColor(this));
 
                 index++;
                 offsetX += maxWidth + 5;
@@ -116,7 +122,7 @@ public class GuiRatConfig extends GuiScreen {
                     }
 
                     case DOWN: {
-                        double maxScale = Rat.instance.configManager.getConfigs().size() * 0.3D;
+                        final short maxScale = (short) (Rat.instance.configManager.getConfigs().size() * 0.3D);
 
                         if (this.scrollY > -(index * maxScale))
                             this.scrollY -= 20;
@@ -137,19 +143,16 @@ public class GuiRatConfig extends GuiScreen {
 
         RenderUtils.drawRound(this.width / 2F - 208F, this.height / 2F + 120F, 490F, 25F, 10, ColorUtils.getBackgroundBrighterColor());
 
-        RenderUtils.drawRound(this.width / 2F - 244, this.height / 2F + 121, 24, 24, 5, !this.overExitGui ? ColorUtils.getBackgroundDarkerColor() : ColorUtils.getBackgroundDarkerColor().darker());
-        RenderUtils.drawRound(this.width / 2F - 244, this.height / 2F + 90, 24, 24, 5, !this.overFolder ? ColorUtils.getBackgroundDarkerColor() : ColorUtils.getBackgroundDarkerColor().darker());
-
         RenderUtils.drawImage("/gui/icons/cross", this.width / 2 - 237, this.height / 2 + 121 + 8, 10, 10, ColorUtils.getIconColorAlpha());
     }
 
     @Override
     public void mouseClicked(int x, int y, int button) {
         if (button == InputUtils.MOUSE_LEFT) {
-            if (this.overExitGui) {
+            if (this.overExitGui.isInside()) {
                 SoundUtils.playClick();
                 mc.displayGuiScreen(this.parent);
-            } else if (this.overFolder) {
+            } else if (this.overFolder.isInside()) {
                 try {
                     Desktop.getDesktop().open(Rat.instance.configManager.cfgDir);
                 } catch (Exception e) {
@@ -158,17 +161,17 @@ public class GuiRatConfig extends GuiScreen {
             }
 
             if (!Rat.instance.configManager.getConfigs().isEmpty()) {
-                float scrollY = scrollAnimation.getValue();
+                final float scrollY = scrollAnimation.getValue();
 
-                int index = 0;
-                int index2 = 1;
-                int offsetX = 0;
-                int offsetY = 0;
+                short index = 0;
+                short index2 = 1;
+                short offsetX = 0;
+                short offsetY = 0;
 
-                for (Config c : Rat.instance.configManager.getConfigs()) {
-                    int maxX = this.width / 2 - 170 + offsetX;
-                    int maxY = (int) (this.height / 2 - 140 + offsetY + FontUtils.getFontHeight() + scrollY);
-                    int maxWidth = 200;
+                for (final Config c : Rat.instance.configManager.getConfigs()) {
+                    final int maxX = this.width / 2 - 170 + offsetX;
+                    final int maxY = (int) (this.height / 2 - 140 + offsetY + FontUtils.getFontHeight() + scrollY);
+                    final int maxWidth = 200;
 
                     if (InputUtils.isInside(maxX, maxY, maxWidth, 30)) {
                         SoundUtils.playClick();

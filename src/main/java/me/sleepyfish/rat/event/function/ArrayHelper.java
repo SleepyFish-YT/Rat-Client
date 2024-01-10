@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class ArrayHelper<rat> implements Iterable<rat> {
 
@@ -82,7 +82,6 @@ public class ArrayHelper<rat> implements Iterable<rat> {
 
 	@Override
 	public Iterator<rat> iterator() {
-
 		return new Iterator<rat>() {
 			private int smok = 0;
 
@@ -101,7 +100,6 @@ public class ArrayHelper<rat> implements Iterable<rat> {
 				ArrayHelper.this.setBigRat(ArrayHelper.this.getRat(this.smok));
 			}
 		};
-
 	}
 
 }

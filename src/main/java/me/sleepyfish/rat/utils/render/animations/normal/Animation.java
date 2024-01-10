@@ -5,7 +5,7 @@ import me.sleepyfish.rat.utils.misc.TimerUtils;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public abstract class Animation {
 
@@ -14,19 +14,19 @@ public abstract class Animation {
     protected double endPoint;
     protected Direction direction;
 
-    public Animation(int duration, double endPoint) {
+    public Animation(final int duration, final double endPoint) {
         this.duration = duration;
         this.endPoint = endPoint;
         this.direction = Direction.FORWARDS;
     }
 
-    public Animation(int ms, double endPoint, Direction direction) {
+    public Animation(final int ms, final double endPoint, final Direction direction) {
         this.duration = ms;
         this.endPoint = endPoint;
         this.direction = direction;
     }
 
-    public boolean isDone(Direction direction) {
+    public boolean isDone(final Direction direction) {
         return this.isDone() && this.direction.equals(direction);
     }
 
@@ -60,7 +60,7 @@ public abstract class Animation {
         return (float) this.getValue();
     }
 
-    public void setValue(double value) {
+    public void setValue(final double value) {
         this.endPoint = value;
     }
 
@@ -70,7 +70,7 @@ public abstract class Animation {
         return this.endPoint;
     }
 
-    public void setEndPoint(double endPoint) {
+    public void setEndPoint(final double endPoint) {
         this.endPoint = endPoint;
     }
 
@@ -78,7 +78,7 @@ public abstract class Animation {
         return this.duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(final int duration) {
         this.duration = duration;
     }
 
@@ -86,7 +86,7 @@ public abstract class Animation {
         return this.direction;
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirection(final Direction direction) {
         if (this.direction != direction) {
             this.direction = direction;
             this.timer.setTime(System.currentTimeMillis() - ((long) this.duration - Math.min((long) this.duration, this.timer.getTime())));

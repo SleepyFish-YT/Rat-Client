@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.Shadow;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 @Mixin(GuiInventory.class)
 public abstract class MixinGuiInventory extends InventoryEffectRenderer {
@@ -32,7 +32,7 @@ public abstract class MixinGuiInventory extends InventoryEffectRenderer {
     protected void drawGuiContainerBackgroundLayer(float a, int b, int c) {
         RenderUtils.drawImage("/gui/icon_text", this.width / 2 - 60, this.height / 4 + 10, 120, 25, ColorUtils.getIconColorAlpha());
 
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.color(1F, 1F, 1F, 1F);
 
         this.mc.getTextureManager().bindTexture(inventoryBackground);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);

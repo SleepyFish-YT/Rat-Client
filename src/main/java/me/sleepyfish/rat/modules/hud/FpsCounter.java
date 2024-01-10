@@ -7,7 +7,7 @@ import me.sleepyfish.rat.modules.settings.impl.ToggleSetting;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class FpsCounter extends Module {
 
@@ -26,13 +26,11 @@ public class FpsCounter extends Module {
     public void renderUpdate() {
         String name = mc.getDebugFPS() + "";
 
-        if (this.fpsText.isEnabled()) {
-            name += " FPS";
-        }
-
-        if (Rat.instance.moduleManager.hasFailed()) {
+        if (Integer.parseInt(name) > 90)
             name = ("1" + name);
-        }
+
+        if (this.fpsText.isEnabled())
+            name += " FPS";
 
         this.setText(name);
     }

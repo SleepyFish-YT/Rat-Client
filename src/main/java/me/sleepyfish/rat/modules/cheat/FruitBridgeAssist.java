@@ -11,7 +11,7 @@ import net.minecraft.util.MovingObjectPosition;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class FruitBridgeAssist extends Module {
 
@@ -28,7 +28,7 @@ public class FruitBridgeAssist extends Module {
         if (!PlayerUtils.canLegitWork() || !PlayerUtils.holdingBlock())
             return;
 
-        if (mc.thePlayer.rotationPitch < 65.0F)
+        if (mc.thePlayer.rotationPitch < 65F)
             return;
 
         if (mc.thePlayer.onGround)

@@ -1,5 +1,6 @@
 package me.sleepyfish.rat.utils.render.font;
 
+import me.sleepyfish.rat.utils.misc.MinecraftUtils;
 import me.sleepyfish.rat.utils.render.GlUtils;
 import me.sleepyfish.rat.utils.render.ColorUtils;
 
@@ -17,15 +18,15 @@ import java.awt.Color;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class MinecraftFontRenderer extends CFont {
 
-    CFont.CharData[] boldChars = new CFont.CharData[256];
-    CFont.CharData[] italicChars = new CFont.CharData[256];
-    CFont.CharData[] boldItalicChars = new CFont.CharData[256];
-    FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-    String colorcodeIdentifiers = "0123456789abcdefklmnor";
+    private final CFont.CharData[] boldChars = new CFont.CharData[256];
+    private final CFont.CharData[] italicChars = new CFont.CharData[256];
+    private final CFont.CharData[] boldItalicChars = new CFont.CharData[256];
+
+    final String colorcodeIdentifiers = "0123456789abcdefklmnor";
     DynamicTexture texBold;
     DynamicTexture texItalic;
     DynamicTexture texItalicBold;
@@ -42,9 +43,10 @@ public class MinecraftFontRenderer extends CFont {
     }
 
     public float drawString(String text, double x, double y, Color color, boolean shadow, float kerning, boolean smooth) {
-        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        final ScaledResolution sr = MinecraftUtils.res;
+
         if (text == null) {
-            return 0.0F;
+            return 0F;
         } else {
             int co = color.getRGB();
             if (shadow) {
@@ -65,19 +67,19 @@ public class MinecraftFontRenderer extends CFont {
             GL11.glBindTexture(3553, this.tex.getGlTextureId());
             GlStateManager.enableBlend();
 
-            for (int index = 0; index < text.length(); ++index) {
+            for (short index = 0; index < text.length(); ++index) {
                 char character = text.charAt(index);
                 if (character == 167) {
                     int colorIndex = 21;
 
                     try {
                         colorIndex = this.colorcodeIdentifiers.indexOf(text.charAt(index + 1));
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                     if (colorIndex < 16) {
                         GlStateManager.bindTexture(this.tex.getGlTextureId());
-                        currentData = this.charData;
                         if (colorIndex < 0) {
                             colorIndex = 15;
                         }
@@ -90,7 +92,6 @@ public class MinecraftFontRenderer extends CFont {
                     } else {
                         ColorUtils.setColor(color.getRGB());
                         GlStateManager.bindTexture(this.tex.getGlTextureId());
-                        currentData = this.charData;
                     }
 
                     ++index;
@@ -103,8 +104,8 @@ public class MinecraftFontRenderer extends CFont {
             GlStateManager.disableBlend();
             GL11.glHint(3155, 4352);
             GlUtils.stopScale();
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            return (float) x / 2.0F;
+            GlStateManager.color(1F, 1F, 1F, 1F);
+            return (float) x / 2F;
         }
     }
 
@@ -122,14 +123,15 @@ public class MinecraftFontRenderer extends CFont {
     }
 
     public double getStringWidth(String text) {
-        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        final ScaledResolution sr = MinecraftUtils.res;
+
         if (text == null) {
             return 0.0;
         } else {
-            float width = 0.0F;
+            float width = 0F;
             CFont.CharData[] currentData = this.charData;
 
-            for (int index = 0; index < text.length(); ++index) {
+            for (short index = 0; index < text.length(); ++index) {
                 char character = text.charAt(index);
                 if (character == 167) {
                     ++index;
@@ -143,14 +145,8 @@ public class MinecraftFontRenderer extends CFont {
     }
 
     public double getHeight() {
-        ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+        final ScaledResolution sr = MinecraftUtils.res;
         return (double) (this.fontHeight - 8) / (double) sr.getScaleFactor();
-    }
-
-    @Override
-    public void setFont(Font font) {
-        super.setFont(font);
-        this.setupBoldItalicIDs();
     }
 
     @Override
@@ -173,7 +169,7 @@ public class MinecraftFontRenderer extends CFont {
 
     private void drawLine(double x, double y, double xEnd, double yEnd) {
         GL11.glDisable(3553);
-        GL11.glLineWidth(1.0F);
+        GL11.glLineWidth(1F);
         GL11.glBegin(1);
         GL11.glVertex2d(x, y);
         GL11.glVertex2d(xEnd, yEnd);
@@ -182,7 +178,7 @@ public class MinecraftFontRenderer extends CFont {
     }
 
     private void setupMinecraftColorcodes() {
-        for (int index = 0; index < 32; ++index) {
+        for (short index = 0; index < 32; ++index) {
             int noClue = (index >> 3 & 1) * 85;
             int red = (index >> 2 & 1) * 170 + noClue;
             int green = (index >> 1 & 1) * 170 + noClue;

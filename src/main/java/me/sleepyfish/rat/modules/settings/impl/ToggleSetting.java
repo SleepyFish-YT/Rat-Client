@@ -9,15 +9,15 @@ import me.sleepyfish.rat.modules.settings.Setting;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class ToggleSetting extends Setting {
 
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
     private boolean isEnabled;
 
-    public ToggleSetting(String name, String description, boolean enabled) {
+    public ToggleSetting(final String name, final String description, final boolean enabled) {
         super(name, "toggle");
 
         this.name = name;
@@ -25,7 +25,7 @@ public class ToggleSetting extends Setting {
         this.isEnabled = enabled;
     }
 
-    public ToggleSetting(String name, boolean enabled) {
+    public ToggleSetting(final String name, final boolean enabled) {
         super(name, "toggle");
 
         this.name = name;
@@ -39,7 +39,7 @@ public class ToggleSetting extends Setting {
 
     @Override
     public JsonElement getConfig() {
-        JsonObject data = new JsonObject();
+        final JsonObject data = new JsonObject();
         data.addProperty("type", this.getType());
         data.addProperty("value", this.isEnabled());
         return data;
@@ -81,10 +81,4 @@ public class ToggleSetting extends Setting {
         return description;
     }
 
-    @Override
-    public void disable() {
-        this.name = "";
-        this.description = "";
-        this.isEnabled = false;
-    }
 }

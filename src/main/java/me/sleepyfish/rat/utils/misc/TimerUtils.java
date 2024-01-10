@@ -1,12 +1,12 @@
 package me.sleepyfish.rat.utils.misc;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
-import java.util.concurrent.ThreadLocalRandom;
-
 public class TimerUtils {
 
     private long lastMs;
@@ -19,15 +19,15 @@ public class TimerUtils {
         return lastMs;
     }
 
-    public void setTime(long lastMs) {
+    public void setTime(final long lastMs) {
         this.lastMs = lastMs;
     }
 
-    public boolean cpsTimer(int min, int max) {
+    public boolean cpsTimer(final int min, final int max) {
         return this.delay(1000L / ThreadLocalRandom.current().nextInt(min, max + 1));
     }
 
-    public boolean delay(long nextDelay) {
+    public boolean delay(final long nextDelay) {
         return System.currentTimeMillis() - lastMs >= nextDelay;
     }
 

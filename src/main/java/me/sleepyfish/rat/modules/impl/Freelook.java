@@ -1,6 +1,7 @@
 package me.sleepyfish.rat.modules.impl;
 
 import me.sleepyfish.rat.modules.Module;
+import me.sleepyfish.rat.utils.misc.InputUtils;
 import me.sleepyfish.rat.utils.misc.PlayerUtils;
 import me.sleepyfish.rat.event.function.RatEvent;
 import me.sleepyfish.rat.event.EventCameraRotation;
@@ -15,21 +16,21 @@ import org.lwjgl.input.Keyboard;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class Freelook extends Module {
 
     private int oldState;
-    public static boolean active;
+    public boolean active;
 
-    public static float yaw;
-    public static float pitch;
+    public float yaw;
+    public float pitch;
 
     private final ToggleSetting invertCamera;
     private final KeybindSetting keybindSetting;
 
     public Freelook() {
-        super("Freelook", "Move camera without moving rotation.");
+        super("Freelook", "Move camera without moving rotation");
         this.addSetting(this.invertCamera = new ToggleSetting("Invert Camera", false));
         this.addSetting(this.keybindSetting = new KeybindSetting("Keybind", Keyboard.KEY_F));
 
@@ -43,7 +44,7 @@ public class Freelook extends Module {
         if (!PlayerUtils.canLegitWork())
             return;
 
-        if (Keyboard.isKeyDown(keybindSetting.keycode)) {
+        if (InputUtils.isKeyDown(this.keybindSetting.keycode)) {
             if (!this.active) {
                 this.active = true;
                 this.oldState = mc.gameSettings.thirdPersonView;
@@ -75,11 +76,10 @@ public class Freelook extends Module {
         }
     }
 
-
     @RatEvent
     public void headRotation(EventPlayerHeadRotation e) {
         if (this.active) {
-            float yaw = e.getYaw();
+            final float yaw = e.getYaw();
             float pitch = e.getPitch();
             e.setCancelled(true);
             pitch = -pitch;
@@ -90,10 +90,18 @@ public class Freelook extends Module {
                 this.yaw += yaw * 0.15F;
             }
 
-            this.pitch = MathHelper.clamp_float(this.pitch + (pitch * 0.15F), -90.0F, 90.0F);
+            this.pitch = MathHelper.clamp_float(this.pitch + (pitch * 0.15F), -90F, 90F);
 
             mc.renderGlobal.setDisplayListEntitiesDirty();
         }
+    }
+
+    public float[] getRots() {
+        return new float[] {this.yaw, this.pitch};
+    }
+
+    public final boolean isActive() {
+        return this.active;
     }
 
 }

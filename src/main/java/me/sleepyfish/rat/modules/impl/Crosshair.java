@@ -9,14 +9,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class Crosshair extends Module {
 
     private final ToggleSetting render;
 
     public Crosshair() {
-        super("Crosshair", "Change the Crosshair HUD.");
+        super("Crosshair", "Change the Crosshair HUD");
 
         this.addSetting(render = new ToggleSetting("Render", false));
 

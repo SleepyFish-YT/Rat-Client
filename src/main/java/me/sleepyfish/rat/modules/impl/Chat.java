@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class Chat extends Module {
 
@@ -30,7 +30,7 @@ public class Chat extends Module {
 
     // Mixin class: MixinGuiNewChat
     public Chat() {
-        super("Chat", "Change the Chat HUD.");
+        super("Chat", "Change the Chat HUD");
 
         this.addSetting(removeTextBar = new ToggleSetting("Remove Text Bar", false));
         this.addSetting(removeChat = new ToggleSetting("Remove Chat", false));
@@ -39,7 +39,7 @@ public class Chat extends Module {
         this.addSetting(unlockChat = new ToggleSetting("Unlock Chat Limit", false));
         this.addSetting(customFont = new ToggleSetting("Custom Font", false));
 
-        Chat.scrollAnimation = new SimpleAnimation(0.0F);
+        Chat.scrollAnimation = new SimpleAnimation(0F);
 
         this.toggle();
     }

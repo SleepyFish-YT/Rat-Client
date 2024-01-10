@@ -5,37 +5,36 @@ import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.input.Keyboard;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * This class is from Rat Client.
  * WARNING: Unauthorized reproduction, skidding, or decompilation of this code is strictly prohibited.
- * @author Nexuscript 2024
+ * @author SleepyFish 2024
  */
 public class InputUtils {
 
-    public static int MOUSE_RIGHT = 1;
-    public static int MOUSE_RIGHT_EVENT = 4;
-    public static int MOUSE_LEFT = 0;
-    public static int MOUSE_LEFT_EVENT = 16;
+    public final static int MOUSE_RIGHT = 1;
+    public final static int MOUSE_RIGHT_EVENT = 4;
+    public final static int MOUSE_LEFT = 0;
+    public final static int MOUSE_LEFT_EVENT = 16;
 
     public static int mouseX;
     public static int mouseY;
 
-    public static boolean isInside(double x, double y, double width, double height) {
+    public static boolean isInside(final double x, final double y, final double width, final double height) {
         return (double) mouseX > x && (double) mouseX < x + width && (double) mouseY > y && (double) mouseY < y + height;
     }
 
-    public static boolean isButtonDown(int button) {
+    public static boolean isButtonDown(final int button) {
         return Mouse.isButtonDown(button);
     }
 
-    public static boolean isKeyDown(int key) {
+    public static boolean isKeyDown(final int key) {
         return Keyboard.isKeyDown(key);
     }
 
-    public static void setMousePos(int x, int y) {
+    public static void setMousePos(final int x, final int y) {
         Mouse.setCursorPosition(x, y);
     }
 
@@ -47,11 +46,11 @@ public class InputUtils {
         return getRealScroll() * 0.15F;
     }
 
-    public static boolean isBlockedKey(int bind) {
+    public static boolean isBlockedKey(final int bind) {
         return bind != 0;
     }
 
-    public static void pressKeybindOnce(KeyBinding key) {
+    public static void pressKeybindOnce(final KeyBinding key) {
         if (key == MinecraftUtils.mc.gameSettings.keyBindUseItem)
             MouseManager.addRightClick();
 
@@ -64,56 +63,47 @@ public class InputUtils {
         KeyBinding.onTick(key.getKeyCode());
     }
 
-    public static boolean isClicked(int key) {
+    public static boolean isClicked(final int key) {
         return Mouse.getEventButton() == key;
     }
 
     public static class MouseManager {
 
-        private static final List<Long> leftClicks = new ArrayList<>();
-        private static final List<Long> rightClicks = new ArrayList<>();
+        private static final LinkedList<Long> leftClicks = new LinkedList<>();
+        private static final LinkedList<Long> rightClicks = new LinkedList<>();
 
         public static long leftClickTimer = 0L;
         public static long rightClickTimer = 0L;
 
         public static void addLeftClick() {
-            leftClicks.add(leftClickTimer = System.currentTimeMillis());
+            leftClicks.add(leftClickTimer = System.nanoTime());
         }
 
         public static void addRightClick() {
-            rightClicks.add(rightClickTimer = System.currentTimeMillis());
+            rightClicks.add(rightClickTimer = System.nanoTime());
         }
 
         public static int getLeftClickCounter() {
-            for (Long lon : leftClicks) {
-                if (lon < System.currentTimeMillis() - 1000L) {
-                    leftClicks.remove(lon);
-                    break;
-                }
-            }
-
+            final long currentTime = System.nanoTime();
+            leftClicks.removeIf(time -> time < currentTime - 1000000000L);
             return leftClicks.size();
         }
 
         public static int getRightClickCounter() {
-            for (Long lon : rightClicks) {
-                if (lon < System.currentTimeMillis() - 1000L) {
-                    rightClicks.remove(lon);
-                    break;
-                }
-            }
-
+            final long currentTime = System.nanoTime();
+            rightClicks.removeIf(time -> time < currentTime - 1000000000L);
             return rightClicks.size();
         }
     }
 
     // Thank you soar $$$ (eldodebug sucks)
+    // Soar is skidded from everything u can imagine of anyways
     public enum SoarScroll {
         DOWN, UP;
     }
 
     public static SoarScroll getSoarScroll() {
-        int mouse = (int) InputUtils.getRealScroll();
+        final int mouse = (int) InputUtils.getRealScroll();
 
         if (mouse > 0) {
             return SoarScroll.UP;
